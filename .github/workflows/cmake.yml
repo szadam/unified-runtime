@@ -28,7 +28,7 @@ jobs:
             build_type: Release
             compiler: {c: gcc-7, cxx: g++-7}
 
-    runs-on: ${{matrix.os}}
+    runs-on: self-hosted
 
     steps:
     - uses: actions/checkout@v3
