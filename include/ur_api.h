@@ -24,6 +24,232 @@
 extern "C" {
 #endif
 
+// Intel 'oneAPI' Unified Runtime function registry
+#if !defined(__GNUC__)
+#pragma region registry
+#endif
+///////////////////////////////////////////////////////////////////////////////
+/// @brief Defines unique stable identifiers for all functions
+typedef enum ur_function_t {
+    UR_FUNCTION_CONTEXT_CREATE = 1,                                            ///< Enumerator for ::urContextCreate
+    UR_FUNCTION_CONTEXT_RETAIN = 2,                                            ///< Enumerator for ::urContextRetain
+    UR_FUNCTION_CONTEXT_RELEASE = 3,                                           ///< Enumerator for ::urContextRelease
+    UR_FUNCTION_CONTEXT_GET_INFO = 4,                                          ///< Enumerator for ::urContextGetInfo
+    UR_FUNCTION_CONTEXT_GET_NATIVE_HANDLE = 5,                                 ///< Enumerator for ::urContextGetNativeHandle
+    UR_FUNCTION_CONTEXT_CREATE_WITH_NATIVE_HANDLE = 6,                         ///< Enumerator for ::urContextCreateWithNativeHandle
+    UR_FUNCTION_CONTEXT_SET_EXTENDED_DELETER = 7,                              ///< Enumerator for ::urContextSetExtendedDeleter
+    UR_FUNCTION_DEVICE_GET = 8,                                                ///< Enumerator for ::urDeviceGet
+    UR_FUNCTION_DEVICE_GET_INFO = 9,                                           ///< Enumerator for ::urDeviceGetInfo
+    UR_FUNCTION_DEVICE_RETAIN = 10,                                            ///< Enumerator for ::urDeviceRetain
+    UR_FUNCTION_DEVICE_RELEASE = 11,                                           ///< Enumerator for ::urDeviceRelease
+    UR_FUNCTION_DEVICE_PARTITION = 12,                                         ///< Enumerator for ::urDevicePartition
+    UR_FUNCTION_DEVICE_SELECT_BINARY = 13,                                     ///< Enumerator for ::urDeviceSelectBinary
+    UR_FUNCTION_DEVICE_GET_NATIVE_HANDLE = 14,                                 ///< Enumerator for ::urDeviceGetNativeHandle
+    UR_FUNCTION_DEVICE_CREATE_WITH_NATIVE_HANDLE = 15,                         ///< Enumerator for ::urDeviceCreateWithNativeHandle
+    UR_FUNCTION_DEVICE_GET_GLOBAL_TIMESTAMPS = 16,                             ///< Enumerator for ::urDeviceGetGlobalTimestamps
+    UR_FUNCTION_ENQUEUE_KERNEL_LAUNCH = 17,                                    ///< Enumerator for ::urEnqueueKernelLaunch
+    UR_FUNCTION_ENQUEUE_EVENTS_WAIT = 18,                                      ///< Enumerator for ::urEnqueueEventsWait
+    UR_FUNCTION_ENQUEUE_EVENTS_WAIT_WITH_BARRIER = 19,                         ///< Enumerator for ::urEnqueueEventsWaitWithBarrier
+    UR_FUNCTION_ENQUEUE_MEM_BUFFER_READ = 20,                                  ///< Enumerator for ::urEnqueueMemBufferRead
+    UR_FUNCTION_ENQUEUE_MEM_BUFFER_WRITE = 21,                                 ///< Enumerator for ::urEnqueueMemBufferWrite
+    UR_FUNCTION_ENQUEUE_MEM_BUFFER_READ_RECT = 22,                             ///< Enumerator for ::urEnqueueMemBufferReadRect
+    UR_FUNCTION_ENQUEUE_MEM_BUFFER_WRITE_RECT = 23,                            ///< Enumerator for ::urEnqueueMemBufferWriteRect
+    UR_FUNCTION_ENQUEUE_MEM_BUFFER_COPY = 24,                                  ///< Enumerator for ::urEnqueueMemBufferCopy
+    UR_FUNCTION_ENQUEUE_MEM_BUFFER_COPY_RECT = 25,                             ///< Enumerator for ::urEnqueueMemBufferCopyRect
+    UR_FUNCTION_ENQUEUE_MEM_BUFFER_FILL = 26,                                  ///< Enumerator for ::urEnqueueMemBufferFill
+    UR_FUNCTION_ENQUEUE_MEM_IMAGE_READ = 27,                                   ///< Enumerator for ::urEnqueueMemImageRead
+    UR_FUNCTION_ENQUEUE_MEM_IMAGE_WRITE = 28,                                  ///< Enumerator for ::urEnqueueMemImageWrite
+    UR_FUNCTION_ENQUEUE_MEM_IMAGE_COPY = 29,                                   ///< Enumerator for ::urEnqueueMemImageCopy
+    UR_FUNCTION_ENQUEUE_MEM_BUFFER_MAP = 30,                                   ///< Enumerator for ::urEnqueueMemBufferMap
+    UR_FUNCTION_ENQUEUE_MEM_UNMAP = 31,                                        ///< Enumerator for ::urEnqueueMemUnmap
+    UR_FUNCTION_ENQUEUE_USM_FILL = 32,                                         ///< Enumerator for ::urEnqueueUSMFill
+    UR_FUNCTION_ENQUEUE_USM_MEMCPY = 33,                                       ///< Enumerator for ::urEnqueueUSMMemcpy
+    UR_FUNCTION_ENQUEUE_USM_PREFETCH = 34,                                     ///< Enumerator for ::urEnqueueUSMPrefetch
+    UR_FUNCTION_ENQUEUE_USM_ADVISE = 35,                                       ///< Enumerator for ::urEnqueueUSMAdvise
+    UR_FUNCTION_ENQUEUE_DEVICE_GLOBAL_VARIABLE_WRITE = 38,                     ///< Enumerator for ::urEnqueueDeviceGlobalVariableWrite
+    UR_FUNCTION_ENQUEUE_DEVICE_GLOBAL_VARIABLE_READ = 39,                      ///< Enumerator for ::urEnqueueDeviceGlobalVariableRead
+    UR_FUNCTION_EVENT_GET_INFO = 40,                                           ///< Enumerator for ::urEventGetInfo
+    UR_FUNCTION_EVENT_GET_PROFILING_INFO = 41,                                 ///< Enumerator for ::urEventGetProfilingInfo
+    UR_FUNCTION_EVENT_WAIT = 42,                                               ///< Enumerator for ::urEventWait
+    UR_FUNCTION_EVENT_RETAIN = 43,                                             ///< Enumerator for ::urEventRetain
+    UR_FUNCTION_EVENT_RELEASE = 44,                                            ///< Enumerator for ::urEventRelease
+    UR_FUNCTION_EVENT_GET_NATIVE_HANDLE = 45,                                  ///< Enumerator for ::urEventGetNativeHandle
+    UR_FUNCTION_EVENT_CREATE_WITH_NATIVE_HANDLE = 46,                          ///< Enumerator for ::urEventCreateWithNativeHandle
+    UR_FUNCTION_EVENT_SET_CALLBACK = 47,                                       ///< Enumerator for ::urEventSetCallback
+    UR_FUNCTION_KERNEL_CREATE = 48,                                            ///< Enumerator for ::urKernelCreate
+    UR_FUNCTION_KERNEL_SET_ARG_VALUE = 49,                                     ///< Enumerator for ::urKernelSetArgValue
+    UR_FUNCTION_KERNEL_SET_ARG_LOCAL = 50,                                     ///< Enumerator for ::urKernelSetArgLocal
+    UR_FUNCTION_KERNEL_GET_INFO = 51,                                          ///< Enumerator for ::urKernelGetInfo
+    UR_FUNCTION_KERNEL_GET_GROUP_INFO = 52,                                    ///< Enumerator for ::urKernelGetGroupInfo
+    UR_FUNCTION_KERNEL_GET_SUB_GROUP_INFO = 53,                                ///< Enumerator for ::urKernelGetSubGroupInfo
+    UR_FUNCTION_KERNEL_RETAIN = 54,                                            ///< Enumerator for ::urKernelRetain
+    UR_FUNCTION_KERNEL_RELEASE = 55,                                           ///< Enumerator for ::urKernelRelease
+    UR_FUNCTION_KERNEL_SET_ARG_POINTER = 56,                                   ///< Enumerator for ::urKernelSetArgPointer
+    UR_FUNCTION_KERNEL_SET_EXEC_INFO = 57,                                     ///< Enumerator for ::urKernelSetExecInfo
+    UR_FUNCTION_KERNEL_SET_ARG_SAMPLER = 58,                                   ///< Enumerator for ::urKernelSetArgSampler
+    UR_FUNCTION_KERNEL_SET_ARG_MEM_OBJ = 59,                                   ///< Enumerator for ::urKernelSetArgMemObj
+    UR_FUNCTION_KERNEL_SET_SPECIALIZATION_CONSTANTS = 60,                      ///< Enumerator for ::urKernelSetSpecializationConstants
+    UR_FUNCTION_KERNEL_GET_NATIVE_HANDLE = 61,                                 ///< Enumerator for ::urKernelGetNativeHandle
+    UR_FUNCTION_KERNEL_CREATE_WITH_NATIVE_HANDLE = 62,                         ///< Enumerator for ::urKernelCreateWithNativeHandle
+    UR_FUNCTION_MEM_IMAGE_CREATE = 63,                                         ///< Enumerator for ::urMemImageCreate
+    UR_FUNCTION_MEM_BUFFER_CREATE = 64,                                        ///< Enumerator for ::urMemBufferCreate
+    UR_FUNCTION_MEM_RETAIN = 65,                                               ///< Enumerator for ::urMemRetain
+    UR_FUNCTION_MEM_RELEASE = 66,                                              ///< Enumerator for ::urMemRelease
+    UR_FUNCTION_MEM_BUFFER_PARTITION = 67,                                     ///< Enumerator for ::urMemBufferPartition
+    UR_FUNCTION_MEM_GET_NATIVE_HANDLE = 68,                                    ///< Enumerator for ::urMemGetNativeHandle
+    UR_FUNCTION_ENQUEUE_READ_HOST_PIPE = 69,                                   ///< Enumerator for ::urEnqueueReadHostPipe
+    UR_FUNCTION_MEM_GET_INFO = 70,                                             ///< Enumerator for ::urMemGetInfo
+    UR_FUNCTION_MEM_IMAGE_GET_INFO = 71,                                       ///< Enumerator for ::urMemImageGetInfo
+    UR_FUNCTION_PLATFORM_GET = 72,                                             ///< Enumerator for ::urPlatformGet
+    UR_FUNCTION_PLATFORM_GET_INFO = 73,                                        ///< Enumerator for ::urPlatformGetInfo
+    UR_FUNCTION_PLATFORM_GET_API_VERSION = 74,                                 ///< Enumerator for ::urPlatformGetApiVersion
+    UR_FUNCTION_PLATFORM_GET_NATIVE_HANDLE = 75,                               ///< Enumerator for ::urPlatformGetNativeHandle
+    UR_FUNCTION_PLATFORM_CREATE_WITH_NATIVE_HANDLE = 76,                       ///< Enumerator for ::urPlatformCreateWithNativeHandle
+    UR_FUNCTION_PROGRAM_CREATE_WITH_IL = 78,                                   ///< Enumerator for ::urProgramCreateWithIL
+    UR_FUNCTION_PROGRAM_CREATE_WITH_BINARY = 79,                               ///< Enumerator for ::urProgramCreateWithBinary
+    UR_FUNCTION_PROGRAM_BUILD = 80,                                            ///< Enumerator for ::urProgramBuild
+    UR_FUNCTION_PROGRAM_COMPILE = 81,                                          ///< Enumerator for ::urProgramCompile
+    UR_FUNCTION_PROGRAM_LINK = 82,                                             ///< Enumerator for ::urProgramLink
+    UR_FUNCTION_PROGRAM_RETAIN = 83,                                           ///< Enumerator for ::urProgramRetain
+    UR_FUNCTION_PROGRAM_RELEASE = 84,                                          ///< Enumerator for ::urProgramRelease
+    UR_FUNCTION_PROGRAM_GET_FUNCTION_POINTER = 85,                             ///< Enumerator for ::urProgramGetFunctionPointer
+    UR_FUNCTION_PROGRAM_GET_INFO = 86,                                         ///< Enumerator for ::urProgramGetInfo
+    UR_FUNCTION_PROGRAM_GET_BUILD_INFO = 87,                                   ///< Enumerator for ::urProgramGetBuildInfo
+    UR_FUNCTION_PROGRAM_SET_SPECIALIZATION_CONSTANTS = 88,                     ///< Enumerator for ::urProgramSetSpecializationConstants
+    UR_FUNCTION_PROGRAM_GET_NATIVE_HANDLE = 89,                                ///< Enumerator for ::urProgramGetNativeHandle
+    UR_FUNCTION_PROGRAM_CREATE_WITH_NATIVE_HANDLE = 90,                        ///< Enumerator for ::urProgramCreateWithNativeHandle
+    UR_FUNCTION_QUEUE_GET_INFO = 91,                                           ///< Enumerator for ::urQueueGetInfo
+    UR_FUNCTION_QUEUE_CREATE = 92,                                             ///< Enumerator for ::urQueueCreate
+    UR_FUNCTION_QUEUE_RETAIN = 93,                                             ///< Enumerator for ::urQueueRetain
+    UR_FUNCTION_QUEUE_RELEASE = 94,                                            ///< Enumerator for ::urQueueRelease
+    UR_FUNCTION_QUEUE_GET_NATIVE_HANDLE = 95,                                  ///< Enumerator for ::urQueueGetNativeHandle
+    UR_FUNCTION_QUEUE_CREATE_WITH_NATIVE_HANDLE = 96,                          ///< Enumerator for ::urQueueCreateWithNativeHandle
+    UR_FUNCTION_QUEUE_FINISH = 97,                                             ///< Enumerator for ::urQueueFinish
+    UR_FUNCTION_QUEUE_FLUSH = 98,                                              ///< Enumerator for ::urQueueFlush
+    UR_FUNCTION_INIT = 99,                                                     ///< Enumerator for ::urInit
+    UR_FUNCTION_TEAR_DOWN = 100,                                               ///< Enumerator for ::urTearDown
+    UR_FUNCTION_SAMPLER_CREATE = 101,                                          ///< Enumerator for ::urSamplerCreate
+    UR_FUNCTION_SAMPLER_RETAIN = 102,                                          ///< Enumerator for ::urSamplerRetain
+    UR_FUNCTION_SAMPLER_RELEASE = 103,                                         ///< Enumerator for ::urSamplerRelease
+    UR_FUNCTION_SAMPLER_GET_INFO = 104,                                        ///< Enumerator for ::urSamplerGetInfo
+    UR_FUNCTION_SAMPLER_GET_NATIVE_HANDLE = 105,                               ///< Enumerator for ::urSamplerGetNativeHandle
+    UR_FUNCTION_SAMPLER_CREATE_WITH_NATIVE_HANDLE = 106,                       ///< Enumerator for ::urSamplerCreateWithNativeHandle
+    UR_FUNCTION_USM_HOST_ALLOC = 107,                                          ///< Enumerator for ::urUSMHostAlloc
+    UR_FUNCTION_USM_DEVICE_ALLOC = 108,                                        ///< Enumerator for ::urUSMDeviceAlloc
+    UR_FUNCTION_USM_SHARED_ALLOC = 109,                                        ///< Enumerator for ::urUSMSharedAlloc
+    UR_FUNCTION_USM_FREE = 110,                                                ///< Enumerator for ::urUSMFree
+    UR_FUNCTION_USM_GET_MEM_ALLOC_INFO = 111,                                  ///< Enumerator for ::urUSMGetMemAllocInfo
+    UR_FUNCTION_USM_POOL_CREATE = 112,                                         ///< Enumerator for ::urUSMPoolCreate
+    UR_FUNCTION_COMMAND_BUFFER_CREATE_EXP = 113,                               ///< Enumerator for ::urCommandBufferCreateExp
+    UR_FUNCTION_PLATFORM_GET_BACKEND_OPTION = 114,                             ///< Enumerator for ::urPlatformGetBackendOption
+    UR_FUNCTION_MEM_BUFFER_CREATE_WITH_NATIVE_HANDLE = 115,                    ///< Enumerator for ::urMemBufferCreateWithNativeHandle
+    UR_FUNCTION_MEM_IMAGE_CREATE_WITH_NATIVE_HANDLE = 116,                     ///< Enumerator for ::urMemImageCreateWithNativeHandle
+    UR_FUNCTION_ENQUEUE_WRITE_HOST_PIPE = 117,                                 ///< Enumerator for ::urEnqueueWriteHostPipe
+    UR_FUNCTION_USM_POOL_RETAIN = 118,                                         ///< Enumerator for ::urUSMPoolRetain
+    UR_FUNCTION_USM_POOL_RELEASE = 119,                                        ///< Enumerator for ::urUSMPoolRelease
+    UR_FUNCTION_USM_POOL_GET_INFO = 120,                                       ///< Enumerator for ::urUSMPoolGetInfo
+    UR_FUNCTION_COMMAND_BUFFER_RETAIN_EXP = 121,                               ///< Enumerator for ::urCommandBufferRetainExp
+    UR_FUNCTION_COMMAND_BUFFER_RELEASE_EXP = 122,                              ///< Enumerator for ::urCommandBufferReleaseExp
+    UR_FUNCTION_COMMAND_BUFFER_FINALIZE_EXP = 123,                             ///< Enumerator for ::urCommandBufferFinalizeExp
+    UR_FUNCTION_COMMAND_BUFFER_APPEND_KERNEL_LAUNCH_EXP = 125,                 ///< Enumerator for ::urCommandBufferAppendKernelLaunchExp
+    UR_FUNCTION_COMMAND_BUFFER_ENQUEUE_EXP = 128,                              ///< Enumerator for ::urCommandBufferEnqueueExp
+    UR_FUNCTION_COMMAND_BUFFER_APPEND_MEMCPY_USM_EXP = 129,                    ///< Enumerator for ::urCommandBufferAppendMemcpyUSMExp
+    UR_FUNCTION_COMMAND_BUFFER_APPEND_MEMBUFFER_COPY_EXP = 130,                ///< Enumerator for ::urCommandBufferAppendMembufferCopyExp
+    UR_FUNCTION_COMMAND_BUFFER_APPEND_MEMBUFFER_COPY_RECT_EXP = 131,           ///< Enumerator for ::urCommandBufferAppendMembufferCopyRectExp
+    UR_FUNCTION_USM_PITCHED_ALLOC_EXP = 132,                                   ///< Enumerator for ::urUSMPitchedAllocExp
+    UR_FUNCTION_BINDLESS_IMAGES_UNSAMPLED_IMAGE_HANDLE_DESTROY_EXP = 133,      ///< Enumerator for ::urBindlessImagesUnsampledImageHandleDestroyExp
+    UR_FUNCTION_BINDLESS_IMAGES_SAMPLED_IMAGE_HANDLE_DESTROY_EXP = 134,        ///< Enumerator for ::urBindlessImagesSampledImageHandleDestroyExp
+    UR_FUNCTION_BINDLESS_IMAGES_IMAGE_ALLOCATE_EXP = 135,                      ///< Enumerator for ::urBindlessImagesImageAllocateExp
+    UR_FUNCTION_BINDLESS_IMAGES_IMAGE_FREE_EXP = 136,                          ///< Enumerator for ::urBindlessImagesImageFreeExp
+    UR_FUNCTION_BINDLESS_IMAGES_UNSAMPLED_IMAGE_CREATE_EXP = 137,              ///< Enumerator for ::urBindlessImagesUnsampledImageCreateExp
+    UR_FUNCTION_BINDLESS_IMAGES_SAMPLED_IMAGE_CREATE_EXP = 138,                ///< Enumerator for ::urBindlessImagesSampledImageCreateExp
+    UR_FUNCTION_BINDLESS_IMAGES_IMAGE_COPY_EXP = 139,                          ///< Enumerator for ::urBindlessImagesImageCopyExp
+    UR_FUNCTION_BINDLESS_IMAGES_IMAGE_GET_INFO_EXP = 140,                      ///< Enumerator for ::urBindlessImagesImageGetInfoExp
+    UR_FUNCTION_BINDLESS_IMAGES_MIPMAP_GET_LEVEL_EXP = 141,                    ///< Enumerator for ::urBindlessImagesMipmapGetLevelExp
+    UR_FUNCTION_BINDLESS_IMAGES_MIPMAP_FREE_EXP = 142,                         ///< Enumerator for ::urBindlessImagesMipmapFreeExp
+    UR_FUNCTION_BINDLESS_IMAGES_IMPORT_OPAQUE_FD_EXP = 143,                    ///< Enumerator for ::urBindlessImagesImportOpaqueFDExp
+    UR_FUNCTION_BINDLESS_IMAGES_MAP_EXTERNAL_ARRAY_EXP = 144,                  ///< Enumerator for ::urBindlessImagesMapExternalArrayExp
+    UR_FUNCTION_BINDLESS_IMAGES_RELEASE_INTEROP_EXP = 145,                     ///< Enumerator for ::urBindlessImagesReleaseInteropExp
+    UR_FUNCTION_BINDLESS_IMAGES_IMPORT_EXTERNAL_SEMAPHORE_OPAQUE_FD_EXP = 146, ///< Enumerator for ::urBindlessImagesImportExternalSemaphoreOpaqueFDExp
+    UR_FUNCTION_BINDLESS_IMAGES_DESTROY_EXTERNAL_SEMAPHORE_EXP = 147,          ///< Enumerator for ::urBindlessImagesDestroyExternalSemaphoreExp
+    UR_FUNCTION_BINDLESS_IMAGES_WAIT_EXTERNAL_SEMAPHORE_EXP = 148,             ///< Enumerator for ::urBindlessImagesWaitExternalSemaphoreExp
+    UR_FUNCTION_BINDLESS_IMAGES_SIGNAL_EXTERNAL_SEMAPHORE_EXP = 149,           ///< Enumerator for ::urBindlessImagesSignalExternalSemaphoreExp
+    UR_FUNCTION_PLATFORM_GET_LAST_ERROR = 150,                                 ///< Enumerator for ::urPlatformGetLastError
+    UR_FUNCTION_ENQUEUE_USM_FILL_2D = 151,                                     ///< Enumerator for ::urEnqueueUSMFill2D
+    UR_FUNCTION_ENQUEUE_USM_MEMCPY_2D = 152,                                   ///< Enumerator for ::urEnqueueUSMMemcpy2D
+    UR_FUNCTION_VIRTUAL_MEM_GRANULARITY_GET_INFO = 153,                        ///< Enumerator for ::urVirtualMemGranularityGetInfo
+    UR_FUNCTION_VIRTUAL_MEM_RESERVE = 154,                                     ///< Enumerator for ::urVirtualMemReserve
+    UR_FUNCTION_VIRTUAL_MEM_FREE = 155,                                        ///< Enumerator for ::urVirtualMemFree
+    UR_FUNCTION_VIRTUAL_MEM_MAP = 156,                                         ///< Enumerator for ::urVirtualMemMap
+    UR_FUNCTION_VIRTUAL_MEM_UNMAP = 157,                                       ///< Enumerator for ::urVirtualMemUnmap
+    UR_FUNCTION_VIRTUAL_MEM_SET_ACCESS = 158,                                  ///< Enumerator for ::urVirtualMemSetAccess
+    UR_FUNCTION_VIRTUAL_MEM_GET_INFO = 159,                                    ///< Enumerator for ::urVirtualMemGetInfo
+    UR_FUNCTION_PHYSICAL_MEM_CREATE = 160,                                     ///< Enumerator for ::urPhysicalMemCreate
+    UR_FUNCTION_PHYSICAL_MEM_RETAIN = 161,                                     ///< Enumerator for ::urPhysicalMemRetain
+    UR_FUNCTION_PHYSICAL_MEM_RELEASE = 162,                                    ///< Enumerator for ::urPhysicalMemRelease
+    UR_FUNCTION_USM_IMPORT_EXP = 163,                                          ///< Enumerator for ::urUSMImportExp
+    UR_FUNCTION_USM_RELEASE_EXP = 164,                                         ///< Enumerator for ::urUSMReleaseExp
+    UR_FUNCTION_USM_P2P_ENABLE_PEER_ACCESS_EXP = 165,                          ///< Enumerator for ::urUsmP2PEnablePeerAccessExp
+    UR_FUNCTION_USM_P2P_DISABLE_PEER_ACCESS_EXP = 166,                         ///< Enumerator for ::urUsmP2PDisablePeerAccessExp
+    UR_FUNCTION_USM_P2P_PEER_ACCESS_GET_INFO_EXP = 167,                        ///< Enumerator for ::urUsmP2PPeerAccessGetInfoExp
+    UR_FUNCTION_COMMAND_BUFFER_APPEND_MEMBUFFER_WRITE_EXP = 168,               ///< Enumerator for ::urCommandBufferAppendMembufferWriteExp
+    UR_FUNCTION_COMMAND_BUFFER_APPEND_MEMBUFFER_READ_EXP = 169,                ///< Enumerator for ::urCommandBufferAppendMembufferReadExp
+    UR_FUNCTION_COMMAND_BUFFER_APPEND_MEMBUFFER_WRITE_RECT_EXP = 170,          ///< Enumerator for ::urCommandBufferAppendMembufferWriteRectExp
+    UR_FUNCTION_COMMAND_BUFFER_APPEND_MEMBUFFER_READ_RECT_EXP = 171,           ///< Enumerator for ::urCommandBufferAppendMembufferReadRectExp
+    /// @cond
+    UR_FUNCTION_FORCE_UINT32 = 0x7fffffff
+    /// @endcond
+
+} ur_function_t;
+
+///////////////////////////////////////////////////////////////////////////////
+/// @brief Defines structure types
+typedef enum ur_structure_type_t {
+    UR_STRUCTURE_TYPE_CONTEXT_PROPERTIES = 0,               ///< ::ur_context_properties_t
+    UR_STRUCTURE_TYPE_IMAGE_DESC = 1,                       ///< ::ur_image_desc_t
+    UR_STRUCTURE_TYPE_BUFFER_PROPERTIES = 2,                ///< ::ur_buffer_properties_t
+    UR_STRUCTURE_TYPE_BUFFER_REGION = 3,                    ///< ::ur_buffer_region_t
+    UR_STRUCTURE_TYPE_BUFFER_CHANNEL_PROPERTIES = 4,        ///< ::ur_buffer_channel_properties_t
+    UR_STRUCTURE_TYPE_BUFFER_ALLOC_LOCATION_PROPERTIES = 5, ///< ::ur_buffer_alloc_location_properties_t
+    UR_STRUCTURE_TYPE_PROGRAM_PROPERTIES = 6,               ///< ::ur_program_properties_t
+    UR_STRUCTURE_TYPE_USM_DESC = 7,                         ///< ::ur_usm_desc_t
+    UR_STRUCTURE_TYPE_USM_HOST_DESC = 8,                    ///< ::ur_usm_host_desc_t
+    UR_STRUCTURE_TYPE_USM_DEVICE_DESC = 9,                  ///< ::ur_usm_device_desc_t
+    UR_STRUCTURE_TYPE_USM_POOL_DESC = 10,                   ///< ::ur_usm_pool_desc_t
+    UR_STRUCTURE_TYPE_USM_POOL_LIMITS_DESC = 11,            ///< ::ur_usm_pool_limits_desc_t
+    UR_STRUCTURE_TYPE_DEVICE_BINARY = 12,                   ///< ::ur_device_binary_t
+    UR_STRUCTURE_TYPE_SAMPLER_DESC = 13,                    ///< ::ur_sampler_desc_t
+    UR_STRUCTURE_TYPE_QUEUE_PROPERTIES = 14,                ///< ::ur_queue_properties_t
+    UR_STRUCTURE_TYPE_QUEUE_INDEX_PROPERTIES = 15,          ///< ::ur_queue_index_properties_t
+    UR_STRUCTURE_TYPE_CONTEXT_NATIVE_PROPERTIES = 16,       ///< ::ur_context_native_properties_t
+    UR_STRUCTURE_TYPE_KERNEL_NATIVE_PROPERTIES = 17,        ///< ::ur_kernel_native_properties_t
+    UR_STRUCTURE_TYPE_QUEUE_NATIVE_PROPERTIES = 18,         ///< ::ur_queue_native_properties_t
+    UR_STRUCTURE_TYPE_MEM_NATIVE_PROPERTIES = 19,           ///< ::ur_mem_native_properties_t
+    UR_STRUCTURE_TYPE_EVENT_NATIVE_PROPERTIES = 20,         ///< ::ur_event_native_properties_t
+    UR_STRUCTURE_TYPE_PLATFORM_NATIVE_PROPERTIES = 21,      ///< ::ur_platform_native_properties_t
+    UR_STRUCTURE_TYPE_DEVICE_NATIVE_PROPERTIES = 22,        ///< ::ur_device_native_properties_t
+    UR_STRUCTURE_TYPE_PROGRAM_NATIVE_PROPERTIES = 23,       ///< ::ur_program_native_properties_t
+    UR_STRUCTURE_TYPE_SAMPLER_NATIVE_PROPERTIES = 24,       ///< ::ur_sampler_native_properties_t
+    UR_STRUCTURE_TYPE_QUEUE_NATIVE_DESC = 25,               ///< ::ur_queue_native_desc_t
+    UR_STRUCTURE_TYPE_DEVICE_PARTITION_PROPERTIES = 26,     ///< ::ur_device_partition_properties_t
+    UR_STRUCTURE_TYPE_KERNEL_ARG_MEM_OBJ_PROPERTIES = 27,   ///< ::ur_kernel_arg_mem_obj_properties_t
+    UR_STRUCTURE_TYPE_PHYSICAL_MEM_PROPERTIES = 28,         ///< ::ur_physical_mem_properties_t
+    UR_STRUCTURE_TYPE_KERNEL_ARG_POINTER_PROPERTIES = 29,   ///< ::ur_kernel_arg_pointer_properties_t
+    UR_STRUCTURE_TYPE_KERNEL_ARG_SAMPLER_PROPERTIES = 30,   ///< ::ur_kernel_arg_sampler_properties_t
+    UR_STRUCTURE_TYPE_KERNEL_EXEC_INFO_PROPERTIES = 31,     ///< ::ur_kernel_exec_info_properties_t
+    UR_STRUCTURE_TYPE_KERNEL_ARG_VALUE_PROPERTIES = 32,     ///< ::ur_kernel_arg_value_properties_t
+    UR_STRUCTURE_TYPE_KERNEL_ARG_LOCAL_PROPERTIES = 33,     ///< ::ur_kernel_arg_local_properties_t
+    UR_STRUCTURE_TYPE_EXP_COMMAND_BUFFER_DESC = 0x1000,     ///< ::ur_exp_command_buffer_desc_t
+    UR_STRUCTURE_TYPE_EXP_SAMPLER_MIP_PROPERTIES = 0x2000,  ///< ::ur_exp_sampler_mip_properties_t
+    /// @cond
+    UR_STRUCTURE_TYPE_FORCE_UINT32 = 0x7fffffff
+    /// @endcond
+
+} ur_structure_type_t;
+
+#if !defined(__GNUC__)
+#pragma endregion
+#endif
 // Intel 'oneAPI' Unified Runtime API common types
 #if !defined(__GNUC__)
 #pragma region common
@@ -165,7 +391,7 @@ typedef enum ur_result_t {
     UR_RESULT_ERROR_DEVICE_LOST = 20,                                         ///< Device hung, reset, was removed, or adapter update occurred
     UR_RESULT_ERROR_DEVICE_REQUIRES_RESET = 21,                               ///< Device requires a reset
     UR_RESULT_ERROR_DEVICE_IN_LOW_POWER_STATE = 22,                           ///< Device currently in low power state
-    UR_RESULT_ERROR_DEVICE_PARTITION_FAILED = 23,                             ///< Device paritioning failed
+    UR_RESULT_ERROR_DEVICE_PARTITION_FAILED = 23,                             ///< Device partitioning failed
     UR_RESULT_ERROR_INVALID_DEVICE_PARTITION_COUNT = 24,                      ///< Invalid counts provided with ::UR_DEVICE_PARTITION_BY_COUNTS
     UR_RESULT_ERROR_INVALID_WORK_ITEM_SIZE = 25,                              ///< Invalid work item size
     UR_RESULT_ERROR_INVALID_WORK_DIMENSION = 26,                              ///< Invalid work dimension
@@ -229,51 +455,6 @@ typedef enum ur_result_t {
     /// @endcond
 
 } ur_result_t;
-
-///////////////////////////////////////////////////////////////////////////////
-/// @brief Defines structure types
-typedef enum ur_structure_type_t {
-    UR_STRUCTURE_TYPE_CONTEXT_PROPERTIES = 0,               ///< ::ur_context_properties_t
-    UR_STRUCTURE_TYPE_IMAGE_DESC = 1,                       ///< ::ur_image_desc_t
-    UR_STRUCTURE_TYPE_BUFFER_PROPERTIES = 2,                ///< ::ur_buffer_properties_t
-    UR_STRUCTURE_TYPE_BUFFER_REGION = 3,                    ///< ::ur_buffer_region_t
-    UR_STRUCTURE_TYPE_BUFFER_CHANNEL_PROPERTIES = 4,        ///< ::ur_buffer_channel_properties_t
-    UR_STRUCTURE_TYPE_BUFFER_ALLOC_LOCATION_PROPERTIES = 5, ///< ::ur_buffer_alloc_location_properties_t
-    UR_STRUCTURE_TYPE_PROGRAM_PROPERTIES = 6,               ///< ::ur_program_properties_t
-    UR_STRUCTURE_TYPE_USM_DESC = 7,                         ///< ::ur_usm_desc_t
-    UR_STRUCTURE_TYPE_USM_HOST_DESC = 8,                    ///< ::ur_usm_host_desc_t
-    UR_STRUCTURE_TYPE_USM_DEVICE_DESC = 9,                  ///< ::ur_usm_device_desc_t
-    UR_STRUCTURE_TYPE_USM_POOL_DESC = 10,                   ///< ::ur_usm_pool_desc_t
-    UR_STRUCTURE_TYPE_USM_POOL_LIMITS_DESC = 11,            ///< ::ur_usm_pool_limits_desc_t
-    UR_STRUCTURE_TYPE_DEVICE_BINARY = 12,                   ///< ::ur_device_binary_t
-    UR_STRUCTURE_TYPE_SAMPLER_DESC = 13,                    ///< ::ur_sampler_desc_t
-    UR_STRUCTURE_TYPE_QUEUE_PROPERTIES = 14,                ///< ::ur_queue_properties_t
-    UR_STRUCTURE_TYPE_QUEUE_INDEX_PROPERTIES = 15,          ///< ::ur_queue_properties_t
-    UR_STRUCTURE_TYPE_CONTEXT_NATIVE_PROPERTIES = 16,       ///< ::ur_context_native_properties_t
-    UR_STRUCTURE_TYPE_KERNEL_NATIVE_PROPERTIES = 17,        ///< ::ur_kernel_native_properties_t
-    UR_STRUCTURE_TYPE_QUEUE_NATIVE_PROPERTIES = 18,         ///< ::ur_queue_native_properties_t
-    UR_STRUCTURE_TYPE_MEM_NATIVE_PROPERTIES = 19,           ///< ::ur_mem_native_properties_t
-    UR_STRUCTURE_TYPE_EVENT_NATIVE_PROPERTIES = 20,         ///< ::ur_event_native_properties_t
-    UR_STRUCTURE_TYPE_PLATFORM_NATIVE_PROPERTIES = 21,      ///< ::ur_platform_native_properties_t
-    UR_STRUCTURE_TYPE_DEVICE_NATIVE_PROPERTIES = 22,        ///< ::ur_device_native_properties_t
-    UR_STRUCTURE_TYPE_PROGRAM_NATIVE_PROPERTIES = 23,       ///< ::ur_program_native_properties_t
-    UR_STRUCTURE_TYPE_SAMPLER_NATIVE_PROPERTIES = 24,       ///< ::ur_sampler_native_properties_t
-    UR_STRUCTURE_TYPE_QUEUE_NATIVE_DESC = 25,               ///< ::ur_queue_native_desc_t
-    UR_STRUCTURE_TYPE_DEVICE_PARTITION_PROPERTIES = 26,     ///< ::ur_device_partition_properties_t
-    UR_STRUCTURE_TYPE_KERNEL_ARG_MEM_OBJ_PROPERTIES = 27,   ///< ::ur_kernel_arg_mem_obj_properties_t
-    UR_STRUCTURE_TYPE_PHYSICAL_MEM_PROPERTIES = 28,         ///< ::ur_physical_mem_properties_t
-    UR_STRUCTURE_TYPE_KERNEL_ARG_POINTER_PROPERTIES = 29,   ///< ::ur_kernel_arg_pointer_properties_t
-    UR_STRUCTURE_TYPE_KERNEL_ARG_SAMPLER_PROPERTIES = 30,   ///< ::ur_kernel_arg_sampler_properties_t
-    UR_STRUCTURE_TYPE_KERNEL_EXEC_INFO_PROPERTIES = 31,     ///< ::ur_kernel_exec_info_properties_t
-    UR_STRUCTURE_TYPE_KERNEL_ARG_VALUE_PROPERTIES = 32,     ///< ::ur_kernel_arg_value_properties_t
-    UR_STRUCTURE_TYPE_KERNEL_ARG_LOCAL_PROPERTIES = 33,     ///< ::ur_kernel_arg_local_properties_t
-    UR_STRUCTURE_TYPE_EXP_COMMAND_BUFFER_DESC = 0x1000,     ///< ::ur_exp_command_buffer_desc_t
-    UR_STRUCTURE_TYPE_EXP_SAMPLER_MIP_PROPERTIES = 0x2000,  ///< ::ur_exp_sampler_mip_properties_t
-    /// @cond
-    UR_STRUCTURE_TYPE_FORCE_UINT32 = 0x7fffffff
-    /// @endcond
-
-} ur_structure_type_t;
 
 ///////////////////////////////////////////////////////////////////////////////
 /// @brief Base for all properties types
@@ -823,185 +1004,187 @@ urDeviceGet(
 ///////////////////////////////////////////////////////////////////////////////
 /// @brief Supported device info
 typedef enum ur_device_info_t {
-    UR_DEVICE_INFO_TYPE = 0,                                      ///< [::ur_device_type_t] type of the device
-    UR_DEVICE_INFO_VENDOR_ID = 1,                                 ///< [uint32_t] vendor Id of the device
-    UR_DEVICE_INFO_DEVICE_ID = 2,                                 ///< [uint32_t] Id of the device
-    UR_DEVICE_INFO_MAX_COMPUTE_UNITS = 3,                         ///< [uint32_t] the number of compute units
-    UR_DEVICE_INFO_MAX_WORK_ITEM_DIMENSIONS = 4,                  ///< [uint32_t] max work item dimensions
-    UR_DEVICE_INFO_MAX_WORK_ITEM_SIZES = 5,                       ///< [size_t[]] return an array of max work item sizes
-    UR_DEVICE_INFO_MAX_WORK_GROUP_SIZE = 6,                       ///< [size_t] max work group size
-    UR_DEVICE_INFO_SINGLE_FP_CONFIG = 7,                          ///< [::ur_device_fp_capability_flags_t] single precision floating point
-                                                                  ///< capability
-    UR_DEVICE_INFO_HALF_FP_CONFIG = 8,                            ///< [::ur_device_fp_capability_flags_t] half precision floating point
-                                                                  ///< capability
-    UR_DEVICE_INFO_DOUBLE_FP_CONFIG = 9,                          ///< [::ur_device_fp_capability_flags_t] double precision floating point
-                                                                  ///< capability
-    UR_DEVICE_INFO_QUEUE_PROPERTIES = 10,                         ///< [::ur_queue_flags_t] command queue properties supported by the device
-    UR_DEVICE_INFO_PREFERRED_VECTOR_WIDTH_CHAR = 11,              ///< [uint32_t] preferred vector width for char
-    UR_DEVICE_INFO_PREFERRED_VECTOR_WIDTH_SHORT = 12,             ///< [uint32_t] preferred vector width for short
-    UR_DEVICE_INFO_PREFERRED_VECTOR_WIDTH_INT = 13,               ///< [uint32_t] preferred vector width for int
-    UR_DEVICE_INFO_PREFERRED_VECTOR_WIDTH_LONG = 14,              ///< [uint32_t] preferred vector width for long
-    UR_DEVICE_INFO_PREFERRED_VECTOR_WIDTH_FLOAT = 15,             ///< [uint32_t] preferred vector width for float
-    UR_DEVICE_INFO_PREFERRED_VECTOR_WIDTH_DOUBLE = 16,            ///< [uint32_t] preferred vector width for double
-    UR_DEVICE_INFO_PREFERRED_VECTOR_WIDTH_HALF = 17,              ///< [uint32_t] preferred vector width for half float
-    UR_DEVICE_INFO_NATIVE_VECTOR_WIDTH_CHAR = 18,                 ///< [uint32_t] native vector width for char
-    UR_DEVICE_INFO_NATIVE_VECTOR_WIDTH_SHORT = 19,                ///< [uint32_t] native vector width for short
-    UR_DEVICE_INFO_NATIVE_VECTOR_WIDTH_INT = 20,                  ///< [uint32_t] native vector width for int
-    UR_DEVICE_INFO_NATIVE_VECTOR_WIDTH_LONG = 21,                 ///< [uint32_t] native vector width for long
-    UR_DEVICE_INFO_NATIVE_VECTOR_WIDTH_FLOAT = 22,                ///< [uint32_t] native vector width for float
-    UR_DEVICE_INFO_NATIVE_VECTOR_WIDTH_DOUBLE = 23,               ///< [uint32_t] native vector width for double
-    UR_DEVICE_INFO_NATIVE_VECTOR_WIDTH_HALF = 24,                 ///< [uint32_t] native vector width for half float
-    UR_DEVICE_INFO_MAX_CLOCK_FREQUENCY = 25,                      ///< [uint32_t] max clock frequency in MHz
-    UR_DEVICE_INFO_MEMORY_CLOCK_RATE = 26,                        ///< [uint32_t] memory clock frequency in MHz
-    UR_DEVICE_INFO_ADDRESS_BITS = 27,                             ///< [uint32_t] address bits
-    UR_DEVICE_INFO_MAX_MEM_ALLOC_SIZE = 28,                       ///< [uint64_t] max memory allocation size
-    UR_DEVICE_INFO_IMAGE_SUPPORTED = 29,                          ///< [::ur_bool_t] images are supported
-    UR_DEVICE_INFO_MAX_READ_IMAGE_ARGS = 30,                      ///< [uint32_t] max number of image objects arguments of a kernel declared
-                                                                  ///< with the read_only qualifier
-    UR_DEVICE_INFO_MAX_WRITE_IMAGE_ARGS = 31,                     ///< [uint32_t] max number of image objects arguments of a kernel declared
-                                                                  ///< with the write_only qualifier
-    UR_DEVICE_INFO_MAX_READ_WRITE_IMAGE_ARGS = 32,                ///< [uint32_t] max number of image objects arguments of a kernel declared
-                                                                  ///< with the read_write qualifier
-    UR_DEVICE_INFO_IMAGE2D_MAX_WIDTH = 33,                        ///< [size_t] max width of Image2D object
-    UR_DEVICE_INFO_IMAGE2D_MAX_HEIGHT = 34,                       ///< [size_t] max heigh of Image2D object
-    UR_DEVICE_INFO_IMAGE3D_MAX_WIDTH = 35,                        ///< [size_t] max width of Image3D object
-    UR_DEVICE_INFO_IMAGE3D_MAX_HEIGHT = 36,                       ///< [size_t] max height of Image3D object
-    UR_DEVICE_INFO_IMAGE3D_MAX_DEPTH = 37,                        ///< [size_t] max depth of Image3D object
-    UR_DEVICE_INFO_IMAGE_MAX_BUFFER_SIZE = 38,                    ///< [size_t] max image buffer size
-    UR_DEVICE_INFO_IMAGE_MAX_ARRAY_SIZE = 39,                     ///< [size_t] max image array size
-    UR_DEVICE_INFO_MAX_SAMPLERS = 40,                             ///< [uint32_t] max number of samplers that can be used in a kernel
-    UR_DEVICE_INFO_MAX_PARAMETER_SIZE = 41,                       ///< [size_t] max size in bytes of all arguments passed to a kernel
-    UR_DEVICE_INFO_MEM_BASE_ADDR_ALIGN = 42,                      ///< [uint32_t] memory base address alignment
-    UR_DEVICE_INFO_GLOBAL_MEM_CACHE_TYPE = 43,                    ///< [::ur_device_mem_cache_type_t] global memory cache type
-    UR_DEVICE_INFO_GLOBAL_MEM_CACHELINE_SIZE = 44,                ///< [uint32_t] global memory cache line size in bytes
-    UR_DEVICE_INFO_GLOBAL_MEM_CACHE_SIZE = 45,                    ///< [uint64_t] size of global memory cache in bytes
-    UR_DEVICE_INFO_GLOBAL_MEM_SIZE = 46,                          ///< [uint64_t] size of global memory in bytes
-    UR_DEVICE_INFO_GLOBAL_MEM_FREE = 47,                          ///< [uint64_t] size of global memory which is free in bytes
-    UR_DEVICE_INFO_MAX_CONSTANT_BUFFER_SIZE = 48,                 ///< [uint64_t] max constant buffer size in bytes
-    UR_DEVICE_INFO_MAX_CONSTANT_ARGS = 49,                        ///< [uint32_t] max number of __const declared arguments in a kernel
-    UR_DEVICE_INFO_LOCAL_MEM_TYPE = 50,                           ///< [::ur_device_local_mem_type_t] local memory type
-    UR_DEVICE_INFO_LOCAL_MEM_SIZE = 51,                           ///< [uint64_t] local memory size in bytes
-    UR_DEVICE_INFO_ERROR_CORRECTION_SUPPORT = 52,                 ///< [::ur_bool_t] support error correction to global and local memory
-    UR_DEVICE_INFO_HOST_UNIFIED_MEMORY = 53,                      ///< [::ur_bool_t] unified host device memory
-    UR_DEVICE_INFO_PROFILING_TIMER_RESOLUTION = 54,               ///< [size_t] profiling timer resolution in nanoseconds
-    UR_DEVICE_INFO_ENDIAN_LITTLE = 55,                            ///< [::ur_bool_t] little endian byte order
-    UR_DEVICE_INFO_AVAILABLE = 56,                                ///< [::ur_bool_t] device is available
-    UR_DEVICE_INFO_COMPILER_AVAILABLE = 57,                       ///< [::ur_bool_t] device compiler is available
-    UR_DEVICE_INFO_LINKER_AVAILABLE = 58,                         ///< [::ur_bool_t] device linker is available
-    UR_DEVICE_INFO_EXECUTION_CAPABILITIES = 59,                   ///< [::ur_device_exec_capability_flags_t] device kernel execution
-                                                                  ///< capability bit-field
-    UR_DEVICE_INFO_QUEUE_ON_DEVICE_PROPERTIES = 60,               ///< [::ur_queue_flags_t] device command queue property bit-field
-    UR_DEVICE_INFO_QUEUE_ON_HOST_PROPERTIES = 61,                 ///< [::ur_queue_flags_t] host queue property bit-field
-    UR_DEVICE_INFO_BUILT_IN_KERNELS = 62,                         ///< [char[]] a semi-colon separated list of built-in kernels
-    UR_DEVICE_INFO_PLATFORM = 63,                                 ///< [::ur_platform_handle_t] the platform associated with the device
-    UR_DEVICE_INFO_REFERENCE_COUNT = 64,                          ///< [uint32_t] Reference count of the device object.
-                                                                  ///< The reference count returned should be considered immediately stale.
-                                                                  ///< It is unsuitable for general use in applications. This feature is
-                                                                  ///< provided for identifying memory leaks.
-    UR_DEVICE_INFO_IL_VERSION = 65,                               ///< [char[]] IL version
-    UR_DEVICE_INFO_NAME = 66,                                     ///< [char[]] Device name
-    UR_DEVICE_INFO_VENDOR = 67,                                   ///< [char[]] Device vendor
-    UR_DEVICE_INFO_DRIVER_VERSION = 68,                           ///< [char[]] Driver version
-    UR_DEVICE_INFO_PROFILE = 69,                                  ///< [char[]] Device profile
-    UR_DEVICE_INFO_VERSION = 70,                                  ///< [char[]] Device version
-    UR_DEVICE_INFO_BACKEND_RUNTIME_VERSION = 71,                  ///< [char[]] Version of backend runtime
-    UR_DEVICE_INFO_EXTENSIONS = 72,                               ///< [char[]] Return a space separated list of extension names
-    UR_DEVICE_INFO_PRINTF_BUFFER_SIZE = 73,                       ///< [size_t] Maximum size in bytes of internal printf buffer
-    UR_DEVICE_INFO_PREFERRED_INTEROP_USER_SYNC = 74,              ///< [::ur_bool_t] prefer user synchronization when sharing object with
-                                                                  ///< other API
-    UR_DEVICE_INFO_PARENT_DEVICE = 75,                            ///< [::ur_device_handle_t] return parent device handle
-    UR_DEVICE_INFO_SUPPORTED_PARTITIONS = 76,                     ///< [::ur_device_partition_t[]] Returns an array of partition types
-                                                                  ///< supported by the device
-    UR_DEVICE_INFO_PARTITION_MAX_SUB_DEVICES = 77,                ///< [uint32_t] maximum number of sub-devices when the device is
-                                                                  ///< partitioned
-    UR_DEVICE_INFO_PARTITION_AFFINITY_DOMAIN = 78,                ///< [::ur_device_affinity_domain_flags_t] Returns a bit-field of the
-                                                                  ///< supported affinity domains for partitioning.
-                                                                  ///< If the device does not support any affinity domains, then 0 will be returned.
-    UR_DEVICE_INFO_PARTITION_TYPE = 79,                           ///< [::ur_device_partition_property_t[]] return an array of
-                                                                  ///< ::ur_device_partition_property_t for properties specified in
-                                                                  ///< ::urDevicePartition
-    UR_DEVICE_INFO_MAX_NUM_SUB_GROUPS = 80,                       ///< [uint32_t] max number of sub groups
-    UR_DEVICE_INFO_SUB_GROUP_INDEPENDENT_FORWARD_PROGRESS = 81,   ///< [::ur_bool_t] support sub group independent forward progress
-    UR_DEVICE_INFO_SUB_GROUP_SIZES_INTEL = 82,                    ///< [uint32_t[]] return an array of sub group sizes supported on Intel
-                                                                  ///< device
-    UR_DEVICE_INFO_USM_HOST_SUPPORT = 83,                         ///< [::ur_device_usm_access_capability_flags_t] support USM host memory
-                                                                  ///< access
-    UR_DEVICE_INFO_USM_DEVICE_SUPPORT = 84,                       ///< [::ur_device_usm_access_capability_flags_t] support USM device memory
-                                                                  ///< access
-    UR_DEVICE_INFO_USM_SINGLE_SHARED_SUPPORT = 85,                ///< [::ur_device_usm_access_capability_flags_t] support USM single device
-                                                                  ///< shared memory access
-    UR_DEVICE_INFO_USM_CROSS_SHARED_SUPPORT = 86,                 ///< [::ur_device_usm_access_capability_flags_t] support USM cross device
-                                                                  ///< shared memory access
-    UR_DEVICE_INFO_USM_SYSTEM_SHARED_SUPPORT = 87,                ///< [::ur_device_usm_access_capability_flags_t] support USM system wide
-                                                                  ///< shared memory access
-    UR_DEVICE_INFO_UUID = 88,                                     ///< [char[]] return device UUID
-    UR_DEVICE_INFO_PCI_ADDRESS = 89,                              ///< [char[]] return device PCI address
-    UR_DEVICE_INFO_GPU_EU_COUNT = 90,                             ///< [uint32_t] return Intel GPU EU count
-    UR_DEVICE_INFO_GPU_EU_SIMD_WIDTH = 91,                        ///< [uint32_t] return Intel GPU EU SIMD width
-    UR_DEVICE_INFO_GPU_EU_SLICES = 92,                            ///< [uint32_t] return Intel GPU number of slices
-    UR_DEVICE_INFO_GPU_EU_COUNT_PER_SUBSLICE = 93,                ///< [uint32_t] return Intel GPU EU count per subslice
-    UR_DEVICE_INFO_GPU_SUBSLICES_PER_SLICE = 94,                  ///< [uint32_t] return Intel GPU number of subslices per slice
-    UR_DEVICE_INFO_GPU_HW_THREADS_PER_EU = 95,                    ///< [uint32_t] return Intel GPU number of threads per EU
-    UR_DEVICE_INFO_MAX_MEMORY_BANDWIDTH = 96,                     ///< [uint32_t] return max memory bandwidth in Mb/s
-    UR_DEVICE_INFO_IMAGE_SRGB = 97,                               ///< [::ur_bool_t] device supports sRGB images
-    UR_DEVICE_INFO_BUILD_ON_SUBDEVICE = 98,                       ///< [::ur_bool_t] Return true if sub-device should do its own program
-                                                                  ///< build
-    UR_DEVICE_INFO_ATOMIC_64 = 99,                                ///< [::ur_bool_t] support 64 bit atomics
-    UR_DEVICE_INFO_ATOMIC_MEMORY_ORDER_CAPABILITIES = 100,        ///< [::ur_memory_order_capability_flags_t] return a bit-field of atomic
-                                                                  ///< memory order capabilities
-    UR_DEVICE_INFO_ATOMIC_MEMORY_SCOPE_CAPABILITIES = 101,        ///< [::ur_memory_scope_capability_flags_t] return a bit-field of atomic
-                                                                  ///< memory scope capabilities
-    UR_DEVICE_INFO_ATOMIC_FENCE_ORDER_CAPABILITIES = 102,         ///< [::ur_memory_order_capability_flags_t] return a bit-field of atomic
-                                                                  ///< memory fence order capabilities
-    UR_DEVICE_INFO_ATOMIC_FENCE_SCOPE_CAPABILITIES = 103,         ///< [::ur_memory_scope_capability_flags_t] return a bit-field of atomic
-                                                                  ///< memory fence scope capabilities
-    UR_DEVICE_INFO_BFLOAT16 = 104,                                ///< [::ur_bool_t] support for bfloat16
-    UR_DEVICE_INFO_MAX_COMPUTE_QUEUE_INDICES = 105,               ///< [uint32_t] Returns 1 if the device doesn't have a notion of a
-                                                                  ///< queue index. Otherwise, returns the number of queue indices that are
-                                                                  ///< available for this device.
-    UR_DEVICE_INFO_KERNEL_SET_SPECIALIZATION_CONSTANTS = 106,     ///< [::ur_bool_t] support the ::urKernelSetSpecializationConstants entry
-                                                                  ///< point
-    UR_DEVICE_INFO_MEMORY_BUS_WIDTH = 107,                        ///< [uint32_t] return the width in bits of the memory bus interface of the
-                                                                  ///< device.
-    UR_DEVICE_INFO_MAX_WORK_GROUPS_3D = 108,                      ///< [size_t[3]] return max 3D work groups
-    UR_DEVICE_INFO_ASYNC_BARRIER = 109,                           ///< [::ur_bool_t] return true if Async Barrier is supported
-    UR_DEVICE_INFO_MEM_CHANNEL_SUPPORT = 110,                     ///< [::ur_bool_t] return true if specifying memory channels is supported
-    UR_DEVICE_INFO_HOST_PIPE_READ_WRITE_SUPPORTED = 111,          ///< [::ur_bool_t] Return true if the device supports enqueueing commands
-                                                                  ///< to read and write pipes from the host.
-    UR_DEVICE_INFO_MAX_REGISTERS_PER_WORK_GROUP = 112,            ///< [uint32_t] The maximum number of registers available per block.
-    UR_DEVICE_INFO_IP_VERSION = 113,                              ///< [uint32_t] The device IP version. The meaning of the device IP version
-                                                                  ///< is implementation-defined, but newer devices should have a higher
-                                                                  ///< version than older devices.
-    UR_DEVICE_INFO_BINDLESS_IMAGES_SUPPORT_EXP = 0x2000,          ///< [::ur_bool_t] returns true if the device supports the creation of
-                                                                  ///< bindless images
-    UR_DEVICE_INFO_BINDLESS_IMAGES_1D_USM_SUPPORT_EXP = 0x2001,   ///< [::ur_bool_t] returns true if the device supports the creation of 1D
-                                                                  ///< bindless images backed by USM
-    UR_DEVICE_INFO_BINDLESS_IMAGES_2D_USM_SUPPORT_EXP = 0x2002,   ///< [::ur_bool_t] returns true if the device supports the creation of 2D
-                                                                  ///< bindless images backed by USM
-    UR_DEVICE_INFO_IMAGE_PITCH_ALIGN_EXP = 0x2003,                ///< [uint32_t] returns the required alignment of the pitch between two
-                                                                  ///< rows of an image in bytes
-    UR_DEVICE_INFO_MAX_IMAGE_LINEAR_WIDTH_EXP = 0x2004,           ///< [size_t] returns the maximum linear width allowed for images allocated
-                                                                  ///< using USM
-    UR_DEVICE_INFO_MAX_IMAGE_LINEAR_HEIGHT_EXP = 0x2005,          ///< [size_t] returns the maximum linear height allowed for images
-                                                                  ///< allocated using USM
-    UR_DEVICE_INFO_MAX_IMAGE_LINEAR_PITCH_EXP = 0x2006,           ///< [size_t] returns the maximum linear pitch allowed for images allocated
-                                                                  ///< using USM
-    UR_DEVICE_INFO_MIPMAP_SUPPORT_EXP = 0x2007,                   ///< [::ur_bool_t] returns true if the device supports allocating mipmap
-                                                                  ///< resources
-    UR_DEVICE_INFO_MIPMAP_ANISOTROPY_SUPPORT_EXP = 0x2008,        ///< [::ur_bool_t] returns true if the device supports sampling mipmap
-                                                                  ///< images with anisotropic filtering
-    UR_DEVICE_INFO_MIPMAP_MAX_ANISOTROPY_EXP = 0x2009,            ///< [uint32_t] returns the maximum anisotropic ratio supported by the
-                                                                  ///< device
-    UR_DEVICE_INFO_MIPMAP_LEVEL_REFERENCE_SUPPORT_EXP = 0x200A,   ///< [::ur_bool_t] returns true if the device supports using images created
-                                                                  ///< from individual mipmap levels
-    UR_DEVICE_INFO_INTEROP_MEMORY_IMPORT_SUPPORT_EXP = 0x200B,    ///< [::ur_bool_t] returns true if the device supports importing external
-                                                                  ///< memory resources
-    UR_DEVICE_INFO_INTEROP_MEMORY_EXPORT_SUPPORT_EXP = 0x200C,    ///< [::ur_bool_t] returns true if the device supports exporting internal
-                                                                  ///< memory resources
-    UR_DEVICE_INFO_INTEROP_SEMAPHORE_IMPORT_SUPPORT_EXP = 0x200D, ///< [::ur_bool_t] returns true if the device supports importing external
-                                                                  ///< semaphore resources
-    UR_DEVICE_INFO_INTEROP_SEMAPHORE_EXPORT_SUPPORT_EXP = 0x200E, ///< [::ur_bool_t] returns true if the device supports exporting internal
-                                                                  ///< event resources
+    UR_DEVICE_INFO_TYPE = 0,                                        ///< [::ur_device_type_t] type of the device
+    UR_DEVICE_INFO_VENDOR_ID = 1,                                   ///< [uint32_t] vendor Id of the device
+    UR_DEVICE_INFO_DEVICE_ID = 2,                                   ///< [uint32_t] Id of the device
+    UR_DEVICE_INFO_MAX_COMPUTE_UNITS = 3,                           ///< [uint32_t] the number of compute units
+    UR_DEVICE_INFO_MAX_WORK_ITEM_DIMENSIONS = 4,                    ///< [uint32_t] max work item dimensions
+    UR_DEVICE_INFO_MAX_WORK_ITEM_SIZES = 5,                         ///< [size_t[]] return an array of max work item sizes
+    UR_DEVICE_INFO_MAX_WORK_GROUP_SIZE = 6,                         ///< [size_t] max work group size
+    UR_DEVICE_INFO_SINGLE_FP_CONFIG = 7,                            ///< [::ur_device_fp_capability_flags_t] single precision floating point
+                                                                    ///< capability
+    UR_DEVICE_INFO_HALF_FP_CONFIG = 8,                              ///< [::ur_device_fp_capability_flags_t] half precision floating point
+                                                                    ///< capability
+    UR_DEVICE_INFO_DOUBLE_FP_CONFIG = 9,                            ///< [::ur_device_fp_capability_flags_t] double precision floating point
+                                                                    ///< capability
+    UR_DEVICE_INFO_QUEUE_PROPERTIES = 10,                           ///< [::ur_queue_flags_t] command queue properties supported by the device
+    UR_DEVICE_INFO_PREFERRED_VECTOR_WIDTH_CHAR = 11,                ///< [uint32_t] preferred vector width for char
+    UR_DEVICE_INFO_PREFERRED_VECTOR_WIDTH_SHORT = 12,               ///< [uint32_t] preferred vector width for short
+    UR_DEVICE_INFO_PREFERRED_VECTOR_WIDTH_INT = 13,                 ///< [uint32_t] preferred vector width for int
+    UR_DEVICE_INFO_PREFERRED_VECTOR_WIDTH_LONG = 14,                ///< [uint32_t] preferred vector width for long
+    UR_DEVICE_INFO_PREFERRED_VECTOR_WIDTH_FLOAT = 15,               ///< [uint32_t] preferred vector width for float
+    UR_DEVICE_INFO_PREFERRED_VECTOR_WIDTH_DOUBLE = 16,              ///< [uint32_t] preferred vector width for double
+    UR_DEVICE_INFO_PREFERRED_VECTOR_WIDTH_HALF = 17,                ///< [uint32_t] preferred vector width for half float
+    UR_DEVICE_INFO_NATIVE_VECTOR_WIDTH_CHAR = 18,                   ///< [uint32_t] native vector width for char
+    UR_DEVICE_INFO_NATIVE_VECTOR_WIDTH_SHORT = 19,                  ///< [uint32_t] native vector width for short
+    UR_DEVICE_INFO_NATIVE_VECTOR_WIDTH_INT = 20,                    ///< [uint32_t] native vector width for int
+    UR_DEVICE_INFO_NATIVE_VECTOR_WIDTH_LONG = 21,                   ///< [uint32_t] native vector width for long
+    UR_DEVICE_INFO_NATIVE_VECTOR_WIDTH_FLOAT = 22,                  ///< [uint32_t] native vector width for float
+    UR_DEVICE_INFO_NATIVE_VECTOR_WIDTH_DOUBLE = 23,                 ///< [uint32_t] native vector width for double
+    UR_DEVICE_INFO_NATIVE_VECTOR_WIDTH_HALF = 24,                   ///< [uint32_t] native vector width for half float
+    UR_DEVICE_INFO_MAX_CLOCK_FREQUENCY = 25,                        ///< [uint32_t] max clock frequency in MHz
+    UR_DEVICE_INFO_MEMORY_CLOCK_RATE = 26,                          ///< [uint32_t] memory clock frequency in MHz
+    UR_DEVICE_INFO_ADDRESS_BITS = 27,                               ///< [uint32_t] address bits
+    UR_DEVICE_INFO_MAX_MEM_ALLOC_SIZE = 28,                         ///< [uint64_t] max memory allocation size
+    UR_DEVICE_INFO_IMAGE_SUPPORTED = 29,                            ///< [::ur_bool_t] images are supported
+    UR_DEVICE_INFO_MAX_READ_IMAGE_ARGS = 30,                        ///< [uint32_t] max number of image objects arguments of a kernel declared
+                                                                    ///< with the read_only qualifier
+    UR_DEVICE_INFO_MAX_WRITE_IMAGE_ARGS = 31,                       ///< [uint32_t] max number of image objects arguments of a kernel declared
+                                                                    ///< with the write_only qualifier
+    UR_DEVICE_INFO_MAX_READ_WRITE_IMAGE_ARGS = 32,                  ///< [uint32_t] max number of image objects arguments of a kernel declared
+                                                                    ///< with the read_write qualifier
+    UR_DEVICE_INFO_IMAGE2D_MAX_WIDTH = 33,                          ///< [size_t] max width of Image2D object
+    UR_DEVICE_INFO_IMAGE2D_MAX_HEIGHT = 34,                         ///< [size_t] max height of Image2D object
+    UR_DEVICE_INFO_IMAGE3D_MAX_WIDTH = 35,                          ///< [size_t] max width of Image3D object
+    UR_DEVICE_INFO_IMAGE3D_MAX_HEIGHT = 36,                         ///< [size_t] max height of Image3D object
+    UR_DEVICE_INFO_IMAGE3D_MAX_DEPTH = 37,                          ///< [size_t] max depth of Image3D object
+    UR_DEVICE_INFO_IMAGE_MAX_BUFFER_SIZE = 38,                      ///< [size_t] max image buffer size
+    UR_DEVICE_INFO_IMAGE_MAX_ARRAY_SIZE = 39,                       ///< [size_t] max image array size
+    UR_DEVICE_INFO_MAX_SAMPLERS = 40,                               ///< [uint32_t] max number of samplers that can be used in a kernel
+    UR_DEVICE_INFO_MAX_PARAMETER_SIZE = 41,                         ///< [size_t] max size in bytes of all arguments passed to a kernel
+    UR_DEVICE_INFO_MEM_BASE_ADDR_ALIGN = 42,                        ///< [uint32_t] memory base address alignment
+    UR_DEVICE_INFO_GLOBAL_MEM_CACHE_TYPE = 43,                      ///< [::ur_device_mem_cache_type_t] global memory cache type
+    UR_DEVICE_INFO_GLOBAL_MEM_CACHELINE_SIZE = 44,                  ///< [uint32_t] global memory cache line size in bytes
+    UR_DEVICE_INFO_GLOBAL_MEM_CACHE_SIZE = 45,                      ///< [uint64_t] size of global memory cache in bytes
+    UR_DEVICE_INFO_GLOBAL_MEM_SIZE = 46,                            ///< [uint64_t] size of global memory in bytes
+    UR_DEVICE_INFO_GLOBAL_MEM_FREE = 47,                            ///< [uint64_t] size of global memory which is free in bytes
+    UR_DEVICE_INFO_MAX_CONSTANT_BUFFER_SIZE = 48,                   ///< [uint64_t] max constant buffer size in bytes
+    UR_DEVICE_INFO_MAX_CONSTANT_ARGS = 49,                          ///< [uint32_t] max number of __const declared arguments in a kernel
+    UR_DEVICE_INFO_LOCAL_MEM_TYPE = 50,                             ///< [::ur_device_local_mem_type_t] local memory type
+    UR_DEVICE_INFO_LOCAL_MEM_SIZE = 51,                             ///< [uint64_t] local memory size in bytes
+    UR_DEVICE_INFO_ERROR_CORRECTION_SUPPORT = 52,                   ///< [::ur_bool_t] support error correction to global and local memory
+    UR_DEVICE_INFO_HOST_UNIFIED_MEMORY = 53,                        ///< [::ur_bool_t] unified host device memory
+    UR_DEVICE_INFO_PROFILING_TIMER_RESOLUTION = 54,                 ///< [size_t] profiling timer resolution in nanoseconds
+    UR_DEVICE_INFO_ENDIAN_LITTLE = 55,                              ///< [::ur_bool_t] little endian byte order
+    UR_DEVICE_INFO_AVAILABLE = 56,                                  ///< [::ur_bool_t] device is available
+    UR_DEVICE_INFO_COMPILER_AVAILABLE = 57,                         ///< [::ur_bool_t] device compiler is available
+    UR_DEVICE_INFO_LINKER_AVAILABLE = 58,                           ///< [::ur_bool_t] device linker is available
+    UR_DEVICE_INFO_EXECUTION_CAPABILITIES = 59,                     ///< [::ur_device_exec_capability_flags_t] device kernel execution
+                                                                    ///< capability bit-field
+    UR_DEVICE_INFO_QUEUE_ON_DEVICE_PROPERTIES = 60,                 ///< [::ur_queue_flags_t] device command queue property bit-field
+    UR_DEVICE_INFO_QUEUE_ON_HOST_PROPERTIES = 61,                   ///< [::ur_queue_flags_t] host queue property bit-field
+    UR_DEVICE_INFO_BUILT_IN_KERNELS = 62,                           ///< [char[]] a semi-colon separated list of built-in kernels
+    UR_DEVICE_INFO_PLATFORM = 63,                                   ///< [::ur_platform_handle_t] the platform associated with the device
+    UR_DEVICE_INFO_REFERENCE_COUNT = 64,                            ///< [uint32_t] Reference count of the device object.
+                                                                    ///< The reference count returned should be considered immediately stale.
+                                                                    ///< It is unsuitable for general use in applications. This feature is
+                                                                    ///< provided for identifying memory leaks.
+    UR_DEVICE_INFO_IL_VERSION = 65,                                 ///< [char[]] IL version
+    UR_DEVICE_INFO_NAME = 66,                                       ///< [char[]] Device name
+    UR_DEVICE_INFO_VENDOR = 67,                                     ///< [char[]] Device vendor
+    UR_DEVICE_INFO_DRIVER_VERSION = 68,                             ///< [char[]] Driver version
+    UR_DEVICE_INFO_PROFILE = 69,                                    ///< [char[]] Device profile
+    UR_DEVICE_INFO_VERSION = 70,                                    ///< [char[]] Device version
+    UR_DEVICE_INFO_BACKEND_RUNTIME_VERSION = 71,                    ///< [char[]] Version of backend runtime
+    UR_DEVICE_INFO_EXTENSIONS = 72,                                 ///< [char[]] Return a space separated list of extension names
+    UR_DEVICE_INFO_PRINTF_BUFFER_SIZE = 73,                         ///< [size_t] Maximum size in bytes of internal printf buffer
+    UR_DEVICE_INFO_PREFERRED_INTEROP_USER_SYNC = 74,                ///< [::ur_bool_t] prefer user synchronization when sharing object with
+                                                                    ///< other API
+    UR_DEVICE_INFO_PARENT_DEVICE = 75,                              ///< [::ur_device_handle_t] return parent device handle
+    UR_DEVICE_INFO_SUPPORTED_PARTITIONS = 76,                       ///< [::ur_device_partition_t[]] Returns an array of partition types
+                                                                    ///< supported by the device
+    UR_DEVICE_INFO_PARTITION_MAX_SUB_DEVICES = 77,                  ///< [uint32_t] maximum number of sub-devices when the device is
+                                                                    ///< partitioned
+    UR_DEVICE_INFO_PARTITION_AFFINITY_DOMAIN = 78,                  ///< [::ur_device_affinity_domain_flags_t] Returns a bit-field of the
+                                                                    ///< supported affinity domains for partitioning.
+                                                                    ///< If the device does not support any affinity domains, then 0 will be returned.
+    UR_DEVICE_INFO_PARTITION_TYPE = 79,                             ///< [::ur_device_partition_property_t[]] return an array of
+                                                                    ///< ::ur_device_partition_property_t for properties specified in
+                                                                    ///< ::urDevicePartition
+    UR_DEVICE_INFO_MAX_NUM_SUB_GROUPS = 80,                         ///< [uint32_t] max number of sub groups
+    UR_DEVICE_INFO_SUB_GROUP_INDEPENDENT_FORWARD_PROGRESS = 81,     ///< [::ur_bool_t] support sub group independent forward progress
+    UR_DEVICE_INFO_SUB_GROUP_SIZES_INTEL = 82,                      ///< [uint32_t[]] return an array of sub group sizes supported on Intel
+                                                                    ///< device
+    UR_DEVICE_INFO_USM_HOST_SUPPORT = 83,                           ///< [::ur_device_usm_access_capability_flags_t] support USM host memory
+                                                                    ///< access
+    UR_DEVICE_INFO_USM_DEVICE_SUPPORT = 84,                         ///< [::ur_device_usm_access_capability_flags_t] support USM device memory
+                                                                    ///< access
+    UR_DEVICE_INFO_USM_SINGLE_SHARED_SUPPORT = 85,                  ///< [::ur_device_usm_access_capability_flags_t] support USM single device
+                                                                    ///< shared memory access
+    UR_DEVICE_INFO_USM_CROSS_SHARED_SUPPORT = 86,                   ///< [::ur_device_usm_access_capability_flags_t] support USM cross device
+                                                                    ///< shared memory access
+    UR_DEVICE_INFO_USM_SYSTEM_SHARED_SUPPORT = 87,                  ///< [::ur_device_usm_access_capability_flags_t] support USM system wide
+                                                                    ///< shared memory access
+    UR_DEVICE_INFO_UUID = 88,                                       ///< [char[]] return device UUID
+    UR_DEVICE_INFO_PCI_ADDRESS = 89,                                ///< [char[]] return device PCI address
+    UR_DEVICE_INFO_GPU_EU_COUNT = 90,                               ///< [uint32_t] return Intel GPU EU count
+    UR_DEVICE_INFO_GPU_EU_SIMD_WIDTH = 91,                          ///< [uint32_t] return Intel GPU EU SIMD width
+    UR_DEVICE_INFO_GPU_EU_SLICES = 92,                              ///< [uint32_t] return Intel GPU number of slices
+    UR_DEVICE_INFO_GPU_EU_COUNT_PER_SUBSLICE = 93,                  ///< [uint32_t] return Intel GPU EU count per subslice
+    UR_DEVICE_INFO_GPU_SUBSLICES_PER_SLICE = 94,                    ///< [uint32_t] return Intel GPU number of subslices per slice
+    UR_DEVICE_INFO_GPU_HW_THREADS_PER_EU = 95,                      ///< [uint32_t] return Intel GPU number of threads per EU
+    UR_DEVICE_INFO_MAX_MEMORY_BANDWIDTH = 96,                       ///< [uint32_t] return max memory bandwidth in Mb/s
+    UR_DEVICE_INFO_IMAGE_SRGB = 97,                                 ///< [::ur_bool_t] device supports sRGB images
+    UR_DEVICE_INFO_BUILD_ON_SUBDEVICE = 98,                         ///< [::ur_bool_t] Return true if sub-device should do its own program
+                                                                    ///< build
+    UR_DEVICE_INFO_ATOMIC_64 = 99,                                  ///< [::ur_bool_t] support 64 bit atomics
+    UR_DEVICE_INFO_ATOMIC_MEMORY_ORDER_CAPABILITIES = 100,          ///< [::ur_memory_order_capability_flags_t] return a bit-field of atomic
+                                                                    ///< memory order capabilities
+    UR_DEVICE_INFO_ATOMIC_MEMORY_SCOPE_CAPABILITIES = 101,          ///< [::ur_memory_scope_capability_flags_t] return a bit-field of atomic
+                                                                    ///< memory scope capabilities
+    UR_DEVICE_INFO_ATOMIC_FENCE_ORDER_CAPABILITIES = 102,           ///< [::ur_memory_order_capability_flags_t] return a bit-field of atomic
+                                                                    ///< memory fence order capabilities
+    UR_DEVICE_INFO_ATOMIC_FENCE_SCOPE_CAPABILITIES = 103,           ///< [::ur_memory_scope_capability_flags_t] return a bit-field of atomic
+                                                                    ///< memory fence scope capabilities
+    UR_DEVICE_INFO_BFLOAT16 = 104,                                  ///< [::ur_bool_t] support for bfloat16
+    UR_DEVICE_INFO_MAX_COMPUTE_QUEUE_INDICES = 105,                 ///< [uint32_t] Returns 1 if the device doesn't have a notion of a
+                                                                    ///< queue index. Otherwise, returns the number of queue indices that are
+                                                                    ///< available for this device.
+    UR_DEVICE_INFO_KERNEL_SET_SPECIALIZATION_CONSTANTS = 106,       ///< [::ur_bool_t] support the ::urKernelSetSpecializationConstants entry
+                                                                    ///< point
+    UR_DEVICE_INFO_MEMORY_BUS_WIDTH = 107,                          ///< [uint32_t] return the width in bits of the memory bus interface of the
+                                                                    ///< device.
+    UR_DEVICE_INFO_MAX_WORK_GROUPS_3D = 108,                        ///< [size_t[3]] return max 3D work groups
+    UR_DEVICE_INFO_ASYNC_BARRIER = 109,                             ///< [::ur_bool_t] return true if Async Barrier is supported
+    UR_DEVICE_INFO_MEM_CHANNEL_SUPPORT = 110,                       ///< [::ur_bool_t] return true if specifying memory channels is supported
+    UR_DEVICE_INFO_HOST_PIPE_READ_WRITE_SUPPORTED = 111,            ///< [::ur_bool_t] Return true if the device supports enqueueing commands
+                                                                    ///< to read and write pipes from the host.
+    UR_DEVICE_INFO_MAX_REGISTERS_PER_WORK_GROUP = 112,              ///< [uint32_t] The maximum number of registers available per block.
+    UR_DEVICE_INFO_IP_VERSION = 113,                                ///< [uint32_t] The device IP version. The meaning of the device IP version
+                                                                    ///< is implementation-defined, but newer devices should have a higher
+                                                                    ///< version than older devices.
+    UR_DEVICE_INFO_BINDLESS_IMAGES_SUPPORT_EXP = 0x2000,            ///< [::ur_bool_t] returns true if the device supports the creation of
+                                                                    ///< bindless images
+    UR_DEVICE_INFO_BINDLESS_IMAGES_SHARED_USM_SUPPORT_EXP = 0x2001, ///< [::ur_bool_t] returns true if the device supports the creation of
+                                                                    ///< bindless images backed by shared USM
+    UR_DEVICE_INFO_BINDLESS_IMAGES_1D_USM_SUPPORT_EXP = 0x2002,     ///< [::ur_bool_t] returns true if the device supports the creation of 1D
+                                                                    ///< bindless images backed by USM
+    UR_DEVICE_INFO_BINDLESS_IMAGES_2D_USM_SUPPORT_EXP = 0x2003,     ///< [::ur_bool_t] returns true if the device supports the creation of 2D
+                                                                    ///< bindless images backed by USM
+    UR_DEVICE_INFO_IMAGE_PITCH_ALIGN_EXP = 0x2004,                  ///< [uint32_t] returns the required alignment of the pitch between two
+                                                                    ///< rows of an image in bytes
+    UR_DEVICE_INFO_MAX_IMAGE_LINEAR_WIDTH_EXP = 0x2005,             ///< [size_t] returns the maximum linear width allowed for images allocated
+                                                                    ///< using USM
+    UR_DEVICE_INFO_MAX_IMAGE_LINEAR_HEIGHT_EXP = 0x2006,            ///< [size_t] returns the maximum linear height allowed for images
+                                                                    ///< allocated using USM
+    UR_DEVICE_INFO_MAX_IMAGE_LINEAR_PITCH_EXP = 0x2007,             ///< [size_t] returns the maximum linear pitch allowed for images allocated
+                                                                    ///< using USM
+    UR_DEVICE_INFO_MIPMAP_SUPPORT_EXP = 0x2008,                     ///< [::ur_bool_t] returns true if the device supports allocating mipmap
+                                                                    ///< resources
+    UR_DEVICE_INFO_MIPMAP_ANISOTROPY_SUPPORT_EXP = 0x2009,          ///< [::ur_bool_t] returns true if the device supports sampling mipmap
+                                                                    ///< images with anisotropic filtering
+    UR_DEVICE_INFO_MIPMAP_MAX_ANISOTROPY_EXP = 0x200A,              ///< [uint32_t] returns the maximum anisotropic ratio supported by the
+                                                                    ///< device
+    UR_DEVICE_INFO_MIPMAP_LEVEL_REFERENCE_SUPPORT_EXP = 0x200B,     ///< [::ur_bool_t] returns true if the device supports using images created
+                                                                    ///< from individual mipmap levels
+    UR_DEVICE_INFO_INTEROP_MEMORY_IMPORT_SUPPORT_EXP = 0x200C,      ///< [::ur_bool_t] returns true if the device supports importing external
+                                                                    ///< memory resources
+    UR_DEVICE_INFO_INTEROP_MEMORY_EXPORT_SUPPORT_EXP = 0x200D,      ///< [::ur_bool_t] returns true if the device supports exporting internal
+                                                                    ///< memory resources
+    UR_DEVICE_INFO_INTEROP_SEMAPHORE_IMPORT_SUPPORT_EXP = 0x200E,   ///< [::ur_bool_t] returns true if the device supports importing external
+                                                                    ///< semaphore resources
+    UR_DEVICE_INFO_INTEROP_SEMAPHORE_EXPORT_SUPPORT_EXP = 0x200F,   ///< [::ur_bool_t] returns true if the device supports exporting internal
+                                                                    ///< event resources
     /// @cond
     UR_DEVICE_INFO_FORCE_UINT32 = 0x7fffffff
     /// @endcond
@@ -1173,7 +1356,7 @@ typedef union ur_device_partition_value_t {
 /// @brief Device partition property
 typedef struct ur_device_partition_property_t {
     ur_device_partition_t type;        ///< [in] The partitioning type to be used.
-    ur_device_partition_value_t value; ///< [in] The paritioning value.
+    ur_device_partition_value_t value; ///< [in] The partitioning value.
 
 } ur_device_partition_property_t;
 
@@ -3469,7 +3652,7 @@ urProgramCreateWithBinary(
 ///
 /// @details
 ///     - The application may call this function from simultaneous threads.
-///     - Following a succesful call to this entry point, the program passed
+///     - Following a successful call to this entry point, the program passed
 ///       will contain a binary of the ::UR_PROGRAM_BINARY_TYPE_EXECUTABLE type
 ///       for each device in `hContext`.
 ///
@@ -3501,9 +3684,9 @@ urProgramBuild(
 ///
 /// @details
 ///     - The application may call this function from simultaneous threads.
-///     - Following a succesful call to this entry point `hProgram` will contain
-///       a binary of the ::UR_PROGRAM_BINARY_TYPE_COMPILED_OBJECT type for each
-///       device in `hContext`.
+///     - Following a successful call to this entry point `hProgram` will
+///       contain a binary of the ::UR_PROGRAM_BINARY_TYPE_COMPILED_OBJECT type
+///       for each device in `hContext`.
 ///
 /// @remarks
 ///   _Analogues_
@@ -3533,8 +3716,8 @@ urProgramCompile(
 ///
 /// @details
 ///     - The application may call this function from simultaneous threads.
-///     - Following a succesful call to this entry point the program returned in
-///       `phProgram` will contain a binary of the
+///     - Following a successful call to this entry point the program returned
+///       in `phProgram` will contain a binary of the
 ///       ::UR_PROGRAM_BINARY_TYPE_EXECUTABLE type for each device in
 ///       `hContext`.
 ///
@@ -4054,7 +4237,7 @@ typedef enum ur_kernel_sub_group_info_t {
 } ur_kernel_sub_group_info_t;
 
 ///////////////////////////////////////////////////////////////////////////////
-/// @brief Kernel Cache Configuartion.
+/// @brief Kernel Cache Configuration.
 typedef enum ur_kernel_cache_config_t {
     UR_KERNEL_CACHE_CONFIG_DEFAULT = 0,    ///< No preference for SLM or data cache.
     UR_KERNEL_CACHE_CONFIG_LARGE_SLM = 1,  ///< Large Shared Local Memory (SLM) size.
@@ -5184,187 +5367,6 @@ urEventSetCallback(
     ur_event_callback_t pfnNotify,  ///< [in] execution status of the event
     void *pUserData                 ///< [in][out][optional] pointer to data to be passed to callback.
 );
-
-#if !defined(__GNUC__)
-#pragma endregion
-#endif
-// Intel 'oneAPI' Unified Runtime function registry
-#if !defined(__GNUC__)
-#pragma region registry
-#endif
-///////////////////////////////////////////////////////////////////////////////
-/// @brief Defines unique stable identifiers for all functions
-typedef enum ur_function_t {
-    UR_FUNCTION_CONTEXT_CREATE = 1,                                            ///< Enumerator for ::urContextCreate
-    UR_FUNCTION_CONTEXT_RETAIN = 2,                                            ///< Enumerator for ::urContextRetain
-    UR_FUNCTION_CONTEXT_RELEASE = 3,                                           ///< Enumerator for ::urContextRelease
-    UR_FUNCTION_CONTEXT_GET_INFO = 4,                                          ///< Enumerator for ::urContextGetInfo
-    UR_FUNCTION_CONTEXT_GET_NATIVE_HANDLE = 5,                                 ///< Enumerator for ::urContextGetNativeHandle
-    UR_FUNCTION_CONTEXT_CREATE_WITH_NATIVE_HANDLE = 6,                         ///< Enumerator for ::urContextCreateWithNativeHandle
-    UR_FUNCTION_CONTEXT_SET_EXTENDED_DELETER = 7,                              ///< Enumerator for ::urContextSetExtendedDeleter
-    UR_FUNCTION_DEVICE_GET = 8,                                                ///< Enumerator for ::urDeviceGet
-    UR_FUNCTION_DEVICE_GET_INFO = 9,                                           ///< Enumerator for ::urDeviceGetInfo
-    UR_FUNCTION_DEVICE_RETAIN = 10,                                            ///< Enumerator for ::urDeviceRetain
-    UR_FUNCTION_DEVICE_RELEASE = 11,                                           ///< Enumerator for ::urDeviceRelease
-    UR_FUNCTION_DEVICE_PARTITION = 12,                                         ///< Enumerator for ::urDevicePartition
-    UR_FUNCTION_DEVICE_SELECT_BINARY = 13,                                     ///< Enumerator for ::urDeviceSelectBinary
-    UR_FUNCTION_DEVICE_GET_NATIVE_HANDLE = 14,                                 ///< Enumerator for ::urDeviceGetNativeHandle
-    UR_FUNCTION_DEVICE_CREATE_WITH_NATIVE_HANDLE = 15,                         ///< Enumerator for ::urDeviceCreateWithNativeHandle
-    UR_FUNCTION_DEVICE_GET_GLOBAL_TIMESTAMPS = 16,                             ///< Enumerator for ::urDeviceGetGlobalTimestamps
-    UR_FUNCTION_ENQUEUE_KERNEL_LAUNCH = 17,                                    ///< Enumerator for ::urEnqueueKernelLaunch
-    UR_FUNCTION_ENQUEUE_EVENTS_WAIT = 18,                                      ///< Enumerator for ::urEnqueueEventsWait
-    UR_FUNCTION_ENQUEUE_EVENTS_WAIT_WITH_BARRIER = 19,                         ///< Enumerator for ::urEnqueueEventsWaitWithBarrier
-    UR_FUNCTION_ENQUEUE_MEM_BUFFER_READ = 20,                                  ///< Enumerator for ::urEnqueueMemBufferRead
-    UR_FUNCTION_ENQUEUE_MEM_BUFFER_WRITE = 21,                                 ///< Enumerator for ::urEnqueueMemBufferWrite
-    UR_FUNCTION_ENQUEUE_MEM_BUFFER_READ_RECT = 22,                             ///< Enumerator for ::urEnqueueMemBufferReadRect
-    UR_FUNCTION_ENQUEUE_MEM_BUFFER_WRITE_RECT = 23,                            ///< Enumerator for ::urEnqueueMemBufferWriteRect
-    UR_FUNCTION_ENQUEUE_MEM_BUFFER_COPY = 24,                                  ///< Enumerator for ::urEnqueueMemBufferCopy
-    UR_FUNCTION_ENQUEUE_MEM_BUFFER_COPY_RECT = 25,                             ///< Enumerator for ::urEnqueueMemBufferCopyRect
-    UR_FUNCTION_ENQUEUE_MEM_BUFFER_FILL = 26,                                  ///< Enumerator for ::urEnqueueMemBufferFill
-    UR_FUNCTION_ENQUEUE_MEM_IMAGE_READ = 27,                                   ///< Enumerator for ::urEnqueueMemImageRead
-    UR_FUNCTION_ENQUEUE_MEM_IMAGE_WRITE = 28,                                  ///< Enumerator for ::urEnqueueMemImageWrite
-    UR_FUNCTION_ENQUEUE_MEM_IMAGE_COPY = 29,                                   ///< Enumerator for ::urEnqueueMemImageCopy
-    UR_FUNCTION_ENQUEUE_MEM_BUFFER_MAP = 30,                                   ///< Enumerator for ::urEnqueueMemBufferMap
-    UR_FUNCTION_ENQUEUE_MEM_UNMAP = 31,                                        ///< Enumerator for ::urEnqueueMemUnmap
-    UR_FUNCTION_ENQUEUE_USM_FILL = 32,                                         ///< Enumerator for ::urEnqueueUSMFill
-    UR_FUNCTION_ENQUEUE_USM_MEMCPY = 33,                                       ///< Enumerator for ::urEnqueueUSMMemcpy
-    UR_FUNCTION_ENQUEUE_USM_PREFETCH = 34,                                     ///< Enumerator for ::urEnqueueUSMPrefetch
-    UR_FUNCTION_ENQUEUE_USM_ADVISE = 35,                                       ///< Enumerator for ::urEnqueueUSMAdvise
-    UR_FUNCTION_ENQUEUE_DEVICE_GLOBAL_VARIABLE_WRITE = 38,                     ///< Enumerator for ::urEnqueueDeviceGlobalVariableWrite
-    UR_FUNCTION_ENQUEUE_DEVICE_GLOBAL_VARIABLE_READ = 39,                      ///< Enumerator for ::urEnqueueDeviceGlobalVariableRead
-    UR_FUNCTION_EVENT_GET_INFO = 40,                                           ///< Enumerator for ::urEventGetInfo
-    UR_FUNCTION_EVENT_GET_PROFILING_INFO = 41,                                 ///< Enumerator for ::urEventGetProfilingInfo
-    UR_FUNCTION_EVENT_WAIT = 42,                                               ///< Enumerator for ::urEventWait
-    UR_FUNCTION_EVENT_RETAIN = 43,                                             ///< Enumerator for ::urEventRetain
-    UR_FUNCTION_EVENT_RELEASE = 44,                                            ///< Enumerator for ::urEventRelease
-    UR_FUNCTION_EVENT_GET_NATIVE_HANDLE = 45,                                  ///< Enumerator for ::urEventGetNativeHandle
-    UR_FUNCTION_EVENT_CREATE_WITH_NATIVE_HANDLE = 46,                          ///< Enumerator for ::urEventCreateWithNativeHandle
-    UR_FUNCTION_EVENT_SET_CALLBACK = 47,                                       ///< Enumerator for ::urEventSetCallback
-    UR_FUNCTION_KERNEL_CREATE = 48,                                            ///< Enumerator for ::urKernelCreate
-    UR_FUNCTION_KERNEL_SET_ARG_VALUE = 49,                                     ///< Enumerator for ::urKernelSetArgValue
-    UR_FUNCTION_KERNEL_SET_ARG_LOCAL = 50,                                     ///< Enumerator for ::urKernelSetArgLocal
-    UR_FUNCTION_KERNEL_GET_INFO = 51,                                          ///< Enumerator for ::urKernelGetInfo
-    UR_FUNCTION_KERNEL_GET_GROUP_INFO = 52,                                    ///< Enumerator for ::urKernelGetGroupInfo
-    UR_FUNCTION_KERNEL_GET_SUB_GROUP_INFO = 53,                                ///< Enumerator for ::urKernelGetSubGroupInfo
-    UR_FUNCTION_KERNEL_RETAIN = 54,                                            ///< Enumerator for ::urKernelRetain
-    UR_FUNCTION_KERNEL_RELEASE = 55,                                           ///< Enumerator for ::urKernelRelease
-    UR_FUNCTION_KERNEL_SET_ARG_POINTER = 56,                                   ///< Enumerator for ::urKernelSetArgPointer
-    UR_FUNCTION_KERNEL_SET_EXEC_INFO = 57,                                     ///< Enumerator for ::urKernelSetExecInfo
-    UR_FUNCTION_KERNEL_SET_ARG_SAMPLER = 58,                                   ///< Enumerator for ::urKernelSetArgSampler
-    UR_FUNCTION_KERNEL_SET_ARG_MEM_OBJ = 59,                                   ///< Enumerator for ::urKernelSetArgMemObj
-    UR_FUNCTION_KERNEL_SET_SPECIALIZATION_CONSTANTS = 60,                      ///< Enumerator for ::urKernelSetSpecializationConstants
-    UR_FUNCTION_KERNEL_GET_NATIVE_HANDLE = 61,                                 ///< Enumerator for ::urKernelGetNativeHandle
-    UR_FUNCTION_KERNEL_CREATE_WITH_NATIVE_HANDLE = 62,                         ///< Enumerator for ::urKernelCreateWithNativeHandle
-    UR_FUNCTION_MEM_IMAGE_CREATE = 63,                                         ///< Enumerator for ::urMemImageCreate
-    UR_FUNCTION_MEM_BUFFER_CREATE = 64,                                        ///< Enumerator for ::urMemBufferCreate
-    UR_FUNCTION_MEM_RETAIN = 65,                                               ///< Enumerator for ::urMemRetain
-    UR_FUNCTION_MEM_RELEASE = 66,                                              ///< Enumerator for ::urMemRelease
-    UR_FUNCTION_MEM_BUFFER_PARTITION = 67,                                     ///< Enumerator for ::urMemBufferPartition
-    UR_FUNCTION_MEM_GET_NATIVE_HANDLE = 68,                                    ///< Enumerator for ::urMemGetNativeHandle
-    UR_FUNCTION_ENQUEUE_READ_HOST_PIPE = 69,                                   ///< Enumerator for ::urEnqueueReadHostPipe
-    UR_FUNCTION_MEM_GET_INFO = 70,                                             ///< Enumerator for ::urMemGetInfo
-    UR_FUNCTION_MEM_IMAGE_GET_INFO = 71,                                       ///< Enumerator for ::urMemImageGetInfo
-    UR_FUNCTION_PLATFORM_GET = 72,                                             ///< Enumerator for ::urPlatformGet
-    UR_FUNCTION_PLATFORM_GET_INFO = 73,                                        ///< Enumerator for ::urPlatformGetInfo
-    UR_FUNCTION_PLATFORM_GET_API_VERSION = 74,                                 ///< Enumerator for ::urPlatformGetApiVersion
-    UR_FUNCTION_PLATFORM_GET_NATIVE_HANDLE = 75,                               ///< Enumerator for ::urPlatformGetNativeHandle
-    UR_FUNCTION_PLATFORM_CREATE_WITH_NATIVE_HANDLE = 76,                       ///< Enumerator for ::urPlatformCreateWithNativeHandle
-    UR_FUNCTION_PROGRAM_CREATE_WITH_IL = 78,                                   ///< Enumerator for ::urProgramCreateWithIL
-    UR_FUNCTION_PROGRAM_CREATE_WITH_BINARY = 79,                               ///< Enumerator for ::urProgramCreateWithBinary
-    UR_FUNCTION_PROGRAM_BUILD = 80,                                            ///< Enumerator for ::urProgramBuild
-    UR_FUNCTION_PROGRAM_COMPILE = 81,                                          ///< Enumerator for ::urProgramCompile
-    UR_FUNCTION_PROGRAM_LINK = 82,                                             ///< Enumerator for ::urProgramLink
-    UR_FUNCTION_PROGRAM_RETAIN = 83,                                           ///< Enumerator for ::urProgramRetain
-    UR_FUNCTION_PROGRAM_RELEASE = 84,                                          ///< Enumerator for ::urProgramRelease
-    UR_FUNCTION_PROGRAM_GET_FUNCTION_POINTER = 85,                             ///< Enumerator for ::urProgramGetFunctionPointer
-    UR_FUNCTION_PROGRAM_GET_INFO = 86,                                         ///< Enumerator for ::urProgramGetInfo
-    UR_FUNCTION_PROGRAM_GET_BUILD_INFO = 87,                                   ///< Enumerator for ::urProgramGetBuildInfo
-    UR_FUNCTION_PROGRAM_SET_SPECIALIZATION_CONSTANTS = 88,                     ///< Enumerator for ::urProgramSetSpecializationConstants
-    UR_FUNCTION_PROGRAM_GET_NATIVE_HANDLE = 89,                                ///< Enumerator for ::urProgramGetNativeHandle
-    UR_FUNCTION_PROGRAM_CREATE_WITH_NATIVE_HANDLE = 90,                        ///< Enumerator for ::urProgramCreateWithNativeHandle
-    UR_FUNCTION_QUEUE_GET_INFO = 91,                                           ///< Enumerator for ::urQueueGetInfo
-    UR_FUNCTION_QUEUE_CREATE = 92,                                             ///< Enumerator for ::urQueueCreate
-    UR_FUNCTION_QUEUE_RETAIN = 93,                                             ///< Enumerator for ::urQueueRetain
-    UR_FUNCTION_QUEUE_RELEASE = 94,                                            ///< Enumerator for ::urQueueRelease
-    UR_FUNCTION_QUEUE_GET_NATIVE_HANDLE = 95,                                  ///< Enumerator for ::urQueueGetNativeHandle
-    UR_FUNCTION_QUEUE_CREATE_WITH_NATIVE_HANDLE = 96,                          ///< Enumerator for ::urQueueCreateWithNativeHandle
-    UR_FUNCTION_QUEUE_FINISH = 97,                                             ///< Enumerator for ::urQueueFinish
-    UR_FUNCTION_QUEUE_FLUSH = 98,                                              ///< Enumerator for ::urQueueFlush
-    UR_FUNCTION_INIT = 99,                                                     ///< Enumerator for ::urInit
-    UR_FUNCTION_TEAR_DOWN = 100,                                               ///< Enumerator for ::urTearDown
-    UR_FUNCTION_SAMPLER_CREATE = 101,                                          ///< Enumerator for ::urSamplerCreate
-    UR_FUNCTION_SAMPLER_RETAIN = 102,                                          ///< Enumerator for ::urSamplerRetain
-    UR_FUNCTION_SAMPLER_RELEASE = 103,                                         ///< Enumerator for ::urSamplerRelease
-    UR_FUNCTION_SAMPLER_GET_INFO = 104,                                        ///< Enumerator for ::urSamplerGetInfo
-    UR_FUNCTION_SAMPLER_GET_NATIVE_HANDLE = 105,                               ///< Enumerator for ::urSamplerGetNativeHandle
-    UR_FUNCTION_SAMPLER_CREATE_WITH_NATIVE_HANDLE = 106,                       ///< Enumerator for ::urSamplerCreateWithNativeHandle
-    UR_FUNCTION_USM_HOST_ALLOC = 107,                                          ///< Enumerator for ::urUSMHostAlloc
-    UR_FUNCTION_USM_DEVICE_ALLOC = 108,                                        ///< Enumerator for ::urUSMDeviceAlloc
-    UR_FUNCTION_USM_SHARED_ALLOC = 109,                                        ///< Enumerator for ::urUSMSharedAlloc
-    UR_FUNCTION_USM_FREE = 110,                                                ///< Enumerator for ::urUSMFree
-    UR_FUNCTION_USM_GET_MEM_ALLOC_INFO = 111,                                  ///< Enumerator for ::urUSMGetMemAllocInfo
-    UR_FUNCTION_USM_POOL_CREATE = 112,                                         ///< Enumerator for ::urUSMPoolCreate
-    UR_FUNCTION_COMMAND_BUFFER_CREATE_EXP = 113,                               ///< Enumerator for ::urCommandBufferCreateExp
-    UR_FUNCTION_PLATFORM_GET_BACKEND_OPTION = 114,                             ///< Enumerator for ::urPlatformGetBackendOption
-    UR_FUNCTION_MEM_BUFFER_CREATE_WITH_NATIVE_HANDLE = 115,                    ///< Enumerator for ::urMemBufferCreateWithNativeHandle
-    UR_FUNCTION_MEM_IMAGE_CREATE_WITH_NATIVE_HANDLE = 116,                     ///< Enumerator for ::urMemImageCreateWithNativeHandle
-    UR_FUNCTION_ENQUEUE_WRITE_HOST_PIPE = 117,                                 ///< Enumerator for ::urEnqueueWriteHostPipe
-    UR_FUNCTION_USM_POOL_RETAIN = 118,                                         ///< Enumerator for ::urUSMPoolRetain
-    UR_FUNCTION_USM_POOL_RELEASE = 119,                                        ///< Enumerator for ::urUSMPoolRelease
-    UR_FUNCTION_USM_POOL_GET_INFO = 120,                                       ///< Enumerator for ::urUSMPoolGetInfo
-    UR_FUNCTION_COMMAND_BUFFER_RETAIN_EXP = 121,                               ///< Enumerator for ::urCommandBufferRetainExp
-    UR_FUNCTION_COMMAND_BUFFER_RELEASE_EXP = 122,                              ///< Enumerator for ::urCommandBufferReleaseExp
-    UR_FUNCTION_COMMAND_BUFFER_FINALIZE_EXP = 123,                             ///< Enumerator for ::urCommandBufferFinalizeExp
-    UR_FUNCTION_COMMAND_BUFFER_APPEND_KERNEL_LAUNCH_EXP = 125,                 ///< Enumerator for ::urCommandBufferAppendKernelLaunchExp
-    UR_FUNCTION_COMMAND_BUFFER_ENQUEUE_EXP = 128,                              ///< Enumerator for ::urCommandBufferEnqueueExp
-    UR_FUNCTION_COMMAND_BUFFER_APPEND_MEMCPY_USM_EXP = 129,                    ///< Enumerator for ::urCommandBufferAppendMemcpyUSMExp
-    UR_FUNCTION_COMMAND_BUFFER_APPEND_MEMBUFFER_COPY_EXP = 130,                ///< Enumerator for ::urCommandBufferAppendMembufferCopyExp
-    UR_FUNCTION_COMMAND_BUFFER_APPEND_MEMBUFFER_COPY_RECT_EXP = 131,           ///< Enumerator for ::urCommandBufferAppendMembufferCopyRectExp
-    UR_FUNCTION_USM_PITCHED_ALLOC_EXP = 132,                                   ///< Enumerator for ::urUSMPitchedAllocExp
-    UR_FUNCTION_BINDLESS_IMAGES_UNSAMPLED_IMAGE_HANDLE_DESTROY_EXP = 133,      ///< Enumerator for ::urBindlessImagesUnsampledImageHandleDestroyExp
-    UR_FUNCTION_BINDLESS_IMAGES_SAMPLED_IMAGE_HANDLE_DESTROY_EXP = 134,        ///< Enumerator for ::urBindlessImagesSampledImageHandleDestroyExp
-    UR_FUNCTION_BINDLESS_IMAGES_IMAGE_ALLOCATE_EXP = 135,                      ///< Enumerator for ::urBindlessImagesImageAllocateExp
-    UR_FUNCTION_BINDLESS_IMAGES_IMAGE_FREE_EXP = 136,                          ///< Enumerator for ::urBindlessImagesImageFreeExp
-    UR_FUNCTION_BINDLESS_IMAGES_UNSAMPLED_IMAGE_CREATE_EXP = 137,              ///< Enumerator for ::urBindlessImagesUnsampledImageCreateExp
-    UR_FUNCTION_BINDLESS_IMAGES_SAMPLED_IMAGE_CREATE_EXP = 138,                ///< Enumerator for ::urBindlessImagesSampledImageCreateExp
-    UR_FUNCTION_BINDLESS_IMAGES_IMAGE_COPY_EXP = 139,                          ///< Enumerator for ::urBindlessImagesImageCopyExp
-    UR_FUNCTION_BINDLESS_IMAGES_IMAGE_GET_INFO_EXP = 140,                      ///< Enumerator for ::urBindlessImagesImageGetInfoExp
-    UR_FUNCTION_BINDLESS_IMAGES_MIPMAP_GET_LEVEL_EXP = 141,                    ///< Enumerator for ::urBindlessImagesMipmapGetLevelExp
-    UR_FUNCTION_BINDLESS_IMAGES_MIPMAP_FREE_EXP = 142,                         ///< Enumerator for ::urBindlessImagesMipmapFreeExp
-    UR_FUNCTION_BINDLESS_IMAGES_IMPORT_OPAQUE_FD_EXP = 143,                    ///< Enumerator for ::urBindlessImagesImportOpaqueFDExp
-    UR_FUNCTION_BINDLESS_IMAGES_MAP_EXTERNAL_ARRAY_EXP = 144,                  ///< Enumerator for ::urBindlessImagesMapExternalArrayExp
-    UR_FUNCTION_BINDLESS_IMAGES_RELEASE_INTEROP_EXP = 145,                     ///< Enumerator for ::urBindlessImagesReleaseInteropExp
-    UR_FUNCTION_BINDLESS_IMAGES_IMPORT_EXTERNAL_SEMAPHORE_OPAQUE_FD_EXP = 146, ///< Enumerator for ::urBindlessImagesImportExternalSemaphoreOpaqueFDExp
-    UR_FUNCTION_BINDLESS_IMAGES_DESTROY_EXTERNAL_SEMAPHORE_EXP = 147,          ///< Enumerator for ::urBindlessImagesDestroyExternalSemaphoreExp
-    UR_FUNCTION_BINDLESS_IMAGES_WAIT_EXTERNAL_SEMAPHORE_EXP = 148,             ///< Enumerator for ::urBindlessImagesWaitExternalSemaphoreExp
-    UR_FUNCTION_BINDLESS_IMAGES_SIGNAL_EXTERNAL_SEMAPHORE_EXP = 149,           ///< Enumerator for ::urBindlessImagesSignalExternalSemaphoreExp
-    UR_FUNCTION_PLATFORM_GET_LAST_ERROR = 150,                                 ///< Enumerator for ::urPlatformGetLastError
-    UR_FUNCTION_ENQUEUE_USM_FILL_2D = 151,                                     ///< Enumerator for ::urEnqueueUSMFill2D
-    UR_FUNCTION_ENQUEUE_USM_MEMCPY_2D = 152,                                   ///< Enumerator for ::urEnqueueUSMMemcpy2D
-    UR_FUNCTION_VIRTUAL_MEM_GRANULARITY_GET_INFO = 153,                        ///< Enumerator for ::urVirtualMemGranularityGetInfo
-    UR_FUNCTION_VIRTUAL_MEM_RESERVE = 154,                                     ///< Enumerator for ::urVirtualMemReserve
-    UR_FUNCTION_VIRTUAL_MEM_FREE = 155,                                        ///< Enumerator for ::urVirtualMemFree
-    UR_FUNCTION_VIRTUAL_MEM_MAP = 156,                                         ///< Enumerator for ::urVirtualMemMap
-    UR_FUNCTION_VIRTUAL_MEM_UNMAP = 157,                                       ///< Enumerator for ::urVirtualMemUnmap
-    UR_FUNCTION_VIRTUAL_MEM_SET_ACCESS = 158,                                  ///< Enumerator for ::urVirtualMemSetAccess
-    UR_FUNCTION_VIRTUAL_MEM_GET_INFO = 159,                                    ///< Enumerator for ::urVirtualMemGetInfo
-    UR_FUNCTION_PHYSICAL_MEM_CREATE = 160,                                     ///< Enumerator for ::urPhysicalMemCreate
-    UR_FUNCTION_PHYSICAL_MEM_RETAIN = 161,                                     ///< Enumerator for ::urPhysicalMemRetain
-    UR_FUNCTION_PHYSICAL_MEM_RELEASE = 162,                                    ///< Enumerator for ::urPhysicalMemRelease
-    UR_FUNCTION_USM_IMPORT_EXP = 163,                                          ///< Enumerator for ::urUSMImportExp
-    UR_FUNCTION_USM_RELEASE_EXP = 164,                                         ///< Enumerator for ::urUSMReleaseExp
-    UR_FUNCTION_USM_P2P_ENABLE_PEER_ACCESS_EXP = 165,                          ///< Enumerator for ::urUsmP2PEnablePeerAccessExp
-    UR_FUNCTION_USM_P2P_DISABLE_PEER_ACCESS_EXP = 166,                         ///< Enumerator for ::urUsmP2PDisablePeerAccessExp
-    UR_FUNCTION_USM_P2P_PEER_ACCESS_GET_INFO_EXP = 167,                        ///< Enumerator for ::urUsmP2PPeerAccessGetInfoExp
-    UR_FUNCTION_COMMAND_BUFFER_APPEND_MEMBUFFER_WRITE_EXP = 168,               ///< Enumerator for ::urCommandBufferAppendMembufferWriteExp
-    UR_FUNCTION_COMMAND_BUFFER_APPEND_MEMBUFFER_READ_EXP = 169,                ///< Enumerator for ::urCommandBufferAppendMembufferReadExp
-    UR_FUNCTION_COMMAND_BUFFER_APPEND_MEMBUFFER_WRITE_RECT_EXP = 170,          ///< Enumerator for ::urCommandBufferAppendMembufferWriteRectExp
-    UR_FUNCTION_COMMAND_BUFFER_APPEND_MEMBUFFER_READ_RECT_EXP = 171,           ///< Enumerator for ::urCommandBufferAppendMembufferReadRectExp
-    /// @cond
-    UR_FUNCTION_FORCE_UINT32 = 0x7fffffff
-    /// @endcond
-
-} ur_function_t;
 
 #if !defined(__GNUC__)
 #pragma endregion
