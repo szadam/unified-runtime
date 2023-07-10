@@ -132,3 +132,4 @@ to use the following naming convention:
 
 * On Linux platforms, use `libur_adapter_[name].so`.
 * On Windows platforms, use `ur_adapter_[name].dll`.
+self-hosted
