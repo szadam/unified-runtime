@@ -11,14 +11,9 @@ jobs:
     steps:
       - name: Clone the git repo
         uses: actions/checkout@v3
-
-      - name: Install apt packages
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y doxygen
        
       - name: Install pip packages
-        run: pip install -r third_party/requirements.txt
+        run: python3 -m pip install -r third_party/requirements.txt
 
       # Scan is run only for the 'tools' folder.
       - name: Run Bandit
