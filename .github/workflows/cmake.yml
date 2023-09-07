@@ -220,6 +220,7 @@ jobs:
         compiler: [{c: gcc, cxx: g++}, {c: clang, cxx: clang++}]
 
     runs-on: devcloud-pvc
+    if: always()
     steps:
     - uses: actions/checkout@v3
 
@@ -235,6 +236,42 @@ jobs:
     - name: Execute CTS
       run: >
         srun -p pvc-shared scripts/devcloud-test.sh ${{github.workspace}} ${{matrix.compiler.c}} ${{matrix.compiler.cxx}} ${{matrix.build_type}}
+
+    - name: Sampler
+      run: >
+        cat ${{github.workspace}}/build/test/conformance/sampler/output.txt
+
+    - name: memory
+      run: >
+        cat ${{github.workspace}}/build/test/conformance/memory/output.txt
+
+    - name: virtual_memory
+      run: >
+        cat ${{github.workspace}}/build/test/conformance/virtual_memory/output.txt
+
+    - name: device
+      run: >
+        cat ${{github.workspace}}/build/test/conformance/device/output.txt
+
+    - name: runtime
+      run: >
+        cat ${{github.workspace}}/build/test/conformance/runtime/output.txt
+
+    - name: queue
+      run: >
+        cat ${{github.workspace}}/build/test/conformance/queue/output.txt
+
+    - name: context
+      run: >
+        cat ${{github.workspace}}/build/test/conformance/context/output.txt
+
+    - name: event
+      run: >
+        cat ${{github.workspace}}/build/test/conformance/event/output.txt
+
+    - name: usm
+      run: >
+        cat ${{github.workspace}}/build/test/conformance/usm/output.txt
 
   windows-build:
     name: Build - Windows

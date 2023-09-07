@@ -35,6 +35,7 @@ if __name__ == '__main__':
             print(test_case)
 
     rc = result.wait()
+    result1.wait()
     output_file.close()
 
     if rc < 0:

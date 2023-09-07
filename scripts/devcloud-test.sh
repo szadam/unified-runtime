@@ -19,6 +19,8 @@ export CPATH=${workspace}/dpcpp_compiler/include:$CPATH
 export LIBRARY_PATH=${workspace}/dpcpp_compiler/lib:$LIBRARY_PATH
 export LD_LIBRARY_PATH=${workspace}/dpcpp_compiler/lib:$LD_LIBRARY_PATH
 
+sycl-ls
+
 cmake \
 -B${workspace}/build \
 -DCMAKE_C_COMPILER=${compiler_c} \
