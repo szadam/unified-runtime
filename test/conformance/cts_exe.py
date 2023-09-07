@@ -20,29 +20,21 @@ if __name__ == '__main__':
     parser.add_argument("--test_command", help="Ctest test case")
 
     args = parser.parse_args()
+    output_file = open("output.txt", "w")
 
-    output_file_stderr = open("output_stderr.txt", "w")
-    output_file_stdout = open("output_stdout.txt", "w")
-
-    #result = subprocess.Popen([args.test_command, '--gtest_brief=1'], stdout=subprocess.PIPE, text=True)  # nosec B603
-    result1 = subprocess.Popen([args.test_command, '--gtest_brief=1'], stdout=output_file_stdout, stderr=output_file_stderr, text=True)  # nosec B603
+    result = subprocess.Popen([args.test_command, '--gtest_brief=1'], stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True)  # nosec B603
 
     pat = re.compile(r'\[( )*FAILED( )*\]')
 
-    #for line in result.stdout:
-    #    if pat.search(line):
-    #        test_case = line.split(" ")[5]
-    #        test_case = test_case.rstrip(',')
-    #        print(test_case)
+    for line in result.stdout:
+        if pat.search(line):
+            test_case = line.split(" ")[5]
+            test_case = test_case.rstrip(',')
+            print(test_case)
+        output_file.write(line)
 
-    rc = result1.wait()
-    #result1.wait()
-    output_file_stderr.close()
-    output_file_stdout.close()
+    rc = result.wait()
+    output_file.close()
 
     if rc < 0:
         print(signal.strsignal(abs(rc)))
-
-    with open("output.txt", "r") as output_file:
-            for line in output_file:
-                sys.stdout.write(line)
