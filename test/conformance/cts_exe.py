@@ -21,22 +21,24 @@ if __name__ == '__main__':
 
     args = parser.parse_args()
 
-    output_file = open("output.txt", "w")
+    output_file_stderr = open("output_stderr.txt", "w")
+    output_file_stdout = open("output_stdout.txt", "w")
 
-    result = subprocess.Popen([args.test_command, '--gtest_brief=1'], stdout=subprocess.PIPE, text=True)  # nosec B603
-    result1 = subprocess.Popen([args.test_command, '--gtest_brief=1'], stdout=output_file, stderr=subprocess.STDOUT, text=True)  # nosec B603
+    #result = subprocess.Popen([args.test_command, '--gtest_brief=1'], stdout=subprocess.PIPE, text=True)  # nosec B603
+    result1 = subprocess.Popen([args.test_command, '--gtest_brief=1'], stdout=output_file_stdout, stderr=output_file_stderr, text=True)  # nosec B603
 
     pat = re.compile(r'\[( )*FAILED( )*\]')
 
-    for line in result.stdout:
-        if pat.search(line):
-            test_case = line.split(" ")[5]
-            test_case = test_case.rstrip(',')
-            print(test_case)
+    #for line in result.stdout:
+    #    if pat.search(line):
+    #        test_case = line.split(" ")[5]
+    #        test_case = test_case.rstrip(',')
+    #        print(test_case)
 
-    rc = result.wait()
-    result1.wait()
-    output_file.close()
+    rc = result1.wait()
+    #result1.wait()
+    output_file_stderr.close()
+    output_file_stdout.close()
 
     if rc < 0:
         print(signal.strsignal(abs(rc)))
