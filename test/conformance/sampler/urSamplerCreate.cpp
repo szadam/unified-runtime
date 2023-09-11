@@ -23,8 +23,9 @@ std::string deviceTestWithParamPrinter(
     const auto addr_mode = std::get<1>(param);
     const auto filter_mode = std::get<2>(param);
 
+    static int testCounter = 0;
     std::stringstream ss;
-    ss << normalized << "_" << addr_mode << "_" << filter_mode;
+    ss << normalized << "_" << addr_mode << "_" << filter_mode << "_" << testCounter++;
     return uur::GetPlatformAndDeviceName(device) + "__" + ss.str();
 }
 } // namespace uur
