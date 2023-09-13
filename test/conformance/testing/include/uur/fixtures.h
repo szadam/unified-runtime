@@ -39,10 +39,15 @@ GetDevices(ur_platform_handle_t platform) {
     if (count == 0) {
         return {false, {}};
     }
-    std::vector<ur_device_handle_t> devices(count);
-    if (urDeviceGet(platform, UR_DEVICE_TYPE_ALL, count, devices.data(),
+    uint32_t one_device = 1; //to do
+    std::vector<ur_device_handle_t> devices(one_device);
+    if (urDeviceGet(platform, UR_DEVICE_TYPE_ALL, one_device, devices.data(),
                     nullptr)) {
         return {false, {}};
+    }
+    int i=0;
+    for (auto& device : devices) {
+        std::cout << "Device Name: " << uur::GetDeviceName(device) << i++ << std::endl;
     }
     return {true, devices};
 }

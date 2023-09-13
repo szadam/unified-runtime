@@ -13,11 +13,13 @@ build_type=$4
 set -e
 echo "Hostname: $(hostname)"
 
-source /opt/intel/oneapi/setvars.sh
+#source /opt/intel/oneapi/setvars.sh
 export PATH=${workspace}/dpcpp_compiler/bin:$PATH
 export CPATH=${workspace}/dpcpp_compiler/include:$CPATH
 export LIBRARY_PATH=${workspace}/dpcpp_compiler/lib:$LIBRARY_PATH
 export LD_LIBRARY_PATH=${workspace}/dpcpp_compiler/lib:$LD_LIBRARY_PATH
+unset ONEAPI_DEVICE_SELECTOR
+export ONEAPI_DEVICE_SELECTOR=level_zero:0
 
 sycl-ls
 
