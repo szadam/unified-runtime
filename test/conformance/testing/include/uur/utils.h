@@ -170,12 +170,12 @@ inline std::string GetDeviceName(ur_device_handle_t device) {
 }
 
 inline std::string GetPlatformAndDeviceName(ur_device_handle_t device) {
-    static int id = 0;
-    ++id;
-    char pciAddress[256];
+    //static int id = 0;
+    //++id;
+    //char pciAddress[256];
 
-    size_t propSize = sizeof(pciAddress);
-    urDeviceGetInfo(device, UR_DEVICE_INFO_PCI_ADDRESS, propSize, pciAddress, &propSize);
+    //size_t propSize = sizeof(pciAddress);
+    //urDeviceGetInfo(device, UR_DEVICE_INFO_PCI_ADDRESS, propSize, pciAddress, &propSize);
 
     //uint32_t pciAddress = 0;
     //ur_result_t result = urDeviceGetInfo(device, UR_DEVICE_INFO_PCI_ADDRESS, &pciAddress);
