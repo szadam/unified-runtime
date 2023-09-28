@@ -25,6 +25,8 @@
 
 template <class To, class From> To ur_cast(From Value) {
   // TODO: see if more sanity checks are possible.
+  std::cout<<"From: "<<sizeof(From)<<std::endl;
+  std::cout<<"To: "<<sizeof(To)<<std::endl;
   assert(sizeof(From) == sizeof(To));
   return (To)(Value);
 }
