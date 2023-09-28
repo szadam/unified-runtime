@@ -48,10 +48,10 @@ TEST_P(urContextGetInfoTestWithInfoParam, Success) {
     ASSERT_SUCCESS(urContextGetInfo(context, info, 0, nullptr, &info_size));
     ASSERT_NE(info_size, 0);
 
-    //if (const auto expected_size = ctx_info_size_map.find(info);
-    //    expected_size != ctx_info_size_map.end()) {
-    //    ASSERT_EQ(expected_size->second, info_size);
-    //}
+    if (const auto expected_size = ctx_info_size_map.find(info);
+        expected_size != ctx_info_size_map.end()) {
+        ASSERT_EQ(expected_size->second, info_size);
+    }
 
     std::vector<uint8_t> info_data(info_size);
     ASSERT_SUCCESS(

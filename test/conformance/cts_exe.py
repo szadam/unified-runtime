@@ -33,7 +33,7 @@ if __name__ == '__main__':
             print(test_case)
         output_file.write(line)
 
-    rc = result.wait()
+    rc = result.communicate()
     output_file.close()
 
     if rc < 0:

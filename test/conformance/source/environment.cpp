@@ -199,6 +199,7 @@ DevicesEnvironment::DevicesEnvironment(int argc, char **argv)
         error = "Could not find any devices associated with the platform";
         return;
     }
+    // TODO: Add a parameter to make the test work on one device only
     devices.resize(1);
     if (urDeviceGet(platform, UR_DEVICE_TYPE_ALL, 1, devices.data(),
                     nullptr)) {
