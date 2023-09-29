@@ -283,8 +283,7 @@ jobs:
         tar -xvf ${{github.workspace}}/dpcpp_compiler.tar.gz -C dpcpp_compiler
 
     - name: Execute CTS
-      run: >
-        srun -p pvc-shared scripts/devcloud-test.sh ${{github.workspace}} ${{matrix.compiler.c}} ${{matrix.compiler.cxx}} ${{matrix.build_type}}
+      run: srun -p pvc-shared scripts/devcloud-test.sh ${{github.workspace}} ${{matrix.compiler.c}} ${{matrix.compiler.cxx}} ${{matrix.build_type}}
 
   windows-build:
     name: Build - Windows
