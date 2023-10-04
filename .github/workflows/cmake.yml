@@ -285,10 +285,6 @@ jobs:
     - name: Execute CTS
       run: srun -p pvc-shared scripts/devcloud-test.sh ${{github.workspace}} ${{matrix.compiler.c}} ${{matrix.compiler.cxx}} ${{matrix.build_type}}
 
-    - name: CTS output
-      if: always()
-      run: python3 ${{github.workspace}}/scripts/read_cts_output.py ${{github.workspace}}/build
-
   windows-build:
     name: Build - Windows
     strategy:
