@@ -5,6 +5,7 @@
 
 #include <cstring>
 #include <fstream>
+#include <algorithm>
 
 #include "ur_filesystem_resolved.hpp"
 
@@ -14,6 +15,7 @@
 
 #include <uur/environment.h>
 #include <uur/utils.h>
+#include <ur_util.hpp>
 
 namespace uur {
 
@@ -199,6 +201,14 @@ DevicesEnvironment::DevicesEnvironment(int argc, char **argv)
         error = "Could not find any devices associated with the platform";
         return;
     }
+    // Get a parameter (NUMBER_OF_DEVICES) to run tests on the appropriate number of devices
+    auto devices_num = ur_getenv("NUMBER_OF_DEVICES");
+    uint32_t count_set = devices_num ? static_cast<uint32_t>(std::stoi(devices_num.value())) : 1;
+    if (count_set <= 0 || count_set > std::numeric_limits<uint32_t>::max()) {
+        error = "Invalid NUMBER_OF_DEVICES parameter";
+        return;
+    }
+    count = std::min(count, count_set);
     devices.resize(count);
     if (urDeviceGet(platform, UR_DEVICE_TYPE_ALL, count, devices.data(),
                     nullptr)) {
