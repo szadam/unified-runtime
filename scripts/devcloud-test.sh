@@ -5,6 +5,8 @@
 # See LICENSE.TXT
 # SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
 
+#This script build and run CTS on devcloud
+
 workspace=$1
 compiler_c=$2
 compiler_cxx=$3
@@ -28,11 +30,12 @@ cmake \
 -DCMAKE_BUILD_TYPE=${build_type} \
 -DUR_BUILD_TESTS=ON \
 -DUR_FORMAT_CPP_STYLE=OFF \
--DUR_BUILD_ADAPTER_L0=ON
+-DUR_BUILD_ADAPTER_L0=ON \
+-DNUMBER_OF_DEVICES=1
 
 cmake --build ${workspace}/build -j $(nproc)
 
 # Temporarily disabling platform test for L0, because of hang
 # See issue: #824
 cd ${workspace}/build
-ctest -C ${build_type} --output-on-failure -L "conformance" -E "platform-adapter_level_zero" --timeout 180 -VV
+ctest -C ${build_type} --output-on-failure -L "conformance" -E "platform-adapter_level_zero" --timeout 180

@@ -20,8 +20,10 @@ if __name__ == '__main__':
 
     parser = ArgumentParser()
     parser.add_argument("--test_command", help="Ctest test case")
+    parser.add_argument("--NUMBER_OF_DEVICES", type=str, help="Number of devices")
     args = parser.parse_args()
-    result = subprocess.Popen([args.test_command, '--gtest_brief=1'], stdout=subprocess.PIPE,
+    
+    result = subprocess.Popen([args.test_command, '--gtest_brief=1', args.NUMBER_OF_DEVICES], stdout=subprocess.PIPE,
                               stderr=subprocess.STDOUT, text=True)  # nosec B603
 
     pat = re.compile(r'\[( )*FAILED( )*\]')
