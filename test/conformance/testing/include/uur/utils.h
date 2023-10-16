@@ -170,7 +170,18 @@ inline std::string GetDeviceName(ur_device_handle_t device) {
 }
 
 inline std::string GetPlatformAndDeviceName(ur_device_handle_t device) {
-    return GetPlatformName(GetPlatform()) + "__" + GetDeviceName(device);
+    char pciAddress[256];
+    char id[256];
+    size_t propSize = sizeof(pciAddress);
+    urDeviceGetInfo(device, UR_DEVICE_INFO_PCI_ADDRESS, propSize, pciAddress, &propSize);
+    int j = 0;
+    for(int i = 0; i < 256; i++) {
+        if (pciAddress[i] != '.' && pciAddress[i] != ':') {
+            id[j] = pciAddress[i];
+            j++;
+        }
+    }
+    return GetPlatformName(GetPlatform()) + "__" + GetDeviceName(device) + id + "_";
 }
 
 ur_result_t GetDeviceType(ur_device_handle_t device,
