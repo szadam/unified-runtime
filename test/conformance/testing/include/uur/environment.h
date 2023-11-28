@@ -17,7 +17,7 @@ struct PlatformEnvironment : ::testing::Environment {
 
     struct PlatformOptions {
         std::string platform_name;
-        u_long platforms_count;
+        unsigned long platforms_count;
     };
 
     PlatformEnvironment(int argc, char **argv);
@@ -39,7 +39,7 @@ struct DevicesEnvironment : PlatformEnvironment {
 
     struct DeviceOptions {
         std::string device_name;
-        u_long devices_count;
+        unsigned long devices_count;
     };
 
     DevicesEnvironment(int argc, char **argv);
