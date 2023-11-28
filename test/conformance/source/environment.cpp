@@ -34,13 +34,11 @@ std::ostream &operator<<(std::ostream &out,
     return out;
 }
 
-std::ostream &operator<<(std::ostream &out,
-                         const ur_device_handle_t &device) {
+std::ostream &operator<<(std::ostream &out, const ur_device_handle_t &device) {
     size_t size;
     urDeviceGetInfo(device, UR_DEVICE_INFO_NAME, 0, nullptr, &size);
     std::vector<char> name(size);
-    urDeviceGetInfo(device, UR_DEVICE_INFO_NAME, size, name.data(),
-                      nullptr);
+    urDeviceGetInfo(device, UR_DEVICE_INFO_NAME, size, name.data(), nullptr);
     out << name.data();
     return out;
 }
@@ -201,10 +199,10 @@ PlatformEnvironment::parsePlatformOptions(int argc, char **argv) {
                        arg, "--platform=", sizeof("--platform=") - 1) == 0) {
             options.platform_name =
                 std::string(&arg[std::strlen("--platform=")]);
-        } else if (std::strncmp(
-                       arg, "--platforms_count=", sizeof("--platforms_count=") - 1) == 0) {
-            options.platforms_count =
-                std::strtoul(&arg[std::strlen("--platforms_count=")], nullptr, 10);
+        } else if (std::strncmp(arg, "--platforms_count=",
+                                sizeof("--platforms_count=") - 1) == 0) {
+            options.platforms_count = std::strtoul(
+                &arg[std::strlen("--platforms_count=")], nullptr, 10);
         }
     }
     return options;
@@ -218,14 +216,13 @@ DevicesEnvironment::parseDeviceOptions(int argc, char **argv) {
         if (!(std::strcmp(arg, "-h") && std::strcmp(arg, "--help"))) {
             // TODO - print help
             break;
-        } else if (std::strncmp(
-                       arg, "--device=", sizeof("--device=") - 1) == 0) {
-            options.device_name =
-                std::string(&arg[std::strlen("--device=")]);
-        } else if (std::strncmp(
-                       arg, "--devices_count=", sizeof("--devices_count=") - 1) == 0) {
-            options.devices_count =
-                std::strtoul(&arg[std::strlen("--devices_count=")], nullptr, 10);
+        } else if (std::strncmp(arg, "--device=", sizeof("--device=") - 1) ==
+                   0) {
+            options.device_name = std::string(&arg[std::strlen("--device=")]);
+        } else if (std::strncmp(arg, "--devices_count=",
+                                sizeof("--devices_count=") - 1) == 0) {
+            options.devices_count = std::strtoul(
+                &arg[std::strlen("--devices_count=")], nullptr, 10);
         }
     }
     return options;
@@ -234,7 +231,8 @@ DevicesEnvironment::parseDeviceOptions(int argc, char **argv) {
 DevicesEnvironment *DevicesEnvironment::instance = nullptr;
 
 DevicesEnvironment::DevicesEnvironment(int argc, char **argv)
-    : PlatformEnvironment(argc, argv), device_options(parseDeviceOptions(argc, argv)) {
+    : PlatformEnvironment(argc, argv),
+      device_options(parseDeviceOptions(argc, argv)) {
     instance = this;
     if (!error.empty()) {
         return;
@@ -248,16 +246,18 @@ DevicesEnvironment::DevicesEnvironment(int argc, char **argv)
         error = "Could not find any devices associated with the platform";
         return;
     }
-    
+
     // Get the argument (devices_count) to limit test devices count.
     // In case, the devices_count is "0", the variable count will not be changed.
     // The CTS will run on all devices.
     if (device_options.device_name.empty()) {
-        if (device_options.devices_count > (std::numeric_limits<uint32_t>::max)()) {
-        error = "Invalid devices_count argument";
-        return;
+        if (device_options.devices_count >
+            (std::numeric_limits<uint32_t>::max)()) {
+            error = "Invalid devices_count argument";
+            return;
         } else if (device_options.devices_count > 0) {
-            count = (std::min)(count, static_cast<uint32_t>(device_options.devices_count));
+            count = (std::min)(
+                count, static_cast<uint32_t>(device_options.devices_count));
         }
         devices.resize(count);
         if (urDeviceGet(platform, UR_DEVICE_TYPE_ALL, count, devices.data(),
@@ -271,17 +271,17 @@ DevicesEnvironment::DevicesEnvironment(int argc, char **argv)
                         nullptr)) {
             error = "urDeviceGet() failed to get devices.";
             return;
-            }
-        for (u_long i = 0; i<count; i++) {
+        }
+        for (u_long i = 0; i < count; i++) {
             size_t size;
             if (urDeviceGetInfo(devices[i], UR_DEVICE_INFO_NAME, 0, nullptr,
-                                  &size)) {
+                                &size)) {
                 error = "urDeviceGetInfo() failed";
                 return;
             }
             std::vector<char> device_name(size);
             if (urDeviceGetInfo(devices[i], UR_DEVICE_INFO_NAME, size,
-                                  device_name.data(), nullptr)) {
+                                device_name.data(), nullptr)) {
                 error = "urDeviceGetInfo() failed";
                 return;
             }
@@ -294,15 +294,15 @@ DevicesEnvironment::DevicesEnvironment(int argc, char **argv)
             }
         }
         if (!device) {
-                std::stringstream ss_error;
-                ss_error << "Device \"" << device_options.device_name
-                         << "\" not found. Select a single device from below "
-                            "using the "
-                            "--device=NAME command-line options:"
-                         << devices << std::endl
-                         << "or set --devices_count=COUNT.";
-                error = ss_error.str();
-                return;
+            std::stringstream ss_error;
+            ss_error << "Device \"" << device_options.device_name
+                     << "\" not found. Select a single device from below "
+                        "using the "
+                        "--device=NAME command-line options:"
+                     << devices << std::endl
+                     << "or set --devices_count=COUNT.";
+            error = ss_error.str();
+            return;
         }
     }
 }
