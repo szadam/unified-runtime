@@ -35,6 +35,25 @@ std::ostream &operator<<(std::ostream &out,
 }
 
 std::ostream &operator<<(std::ostream &out,
+                         const ur_device_handle_t &device) {
+    size_t size;
+    urDeviceGetInfo(device, UR_DEVICE_INFO_NAME, 0, nullptr, &size);
+    std::vector<char> name(size);
+    urDeviceGetInfo(device, UR_DEVICE_INFO_NAME, size, name.data(),
+                      nullptr);
+    out << name.data();
+    return out;
+}
+
+std::ostream &operator<<(std::ostream &out,
+                         const std::vector<ur_device_handle_t> &devices) {
+    for (auto device : devices) {
+        out << "\n  * \"" << device << "\"";
+    }
+    return out;
+}
+
+std::ostream &operator<<(std::ostream &out,
                          const std::vector<ur_platform_handle_t> &platforms) {
     for (auto platform : platforms) {
         out << "\n  * \"" << platform << "\"";
@@ -101,7 +120,6 @@ uur::PlatformEnvironment::PlatformEnvironment(int argc, char **argv)
     }
 
     if (platform_options.platform_name.empty()) {
-        std::cout << "platforms_count" << platform_options.platforms_count << std::endl;
 
         if (platforms.size() == 1 || platform_options.platforms_count == 1) {
             platform = platforms[0];
@@ -110,7 +128,7 @@ uur::PlatformEnvironment::PlatformEnvironment(int argc, char **argv)
             ss_error << "Select a single platform from below using the "
                         "--platform=NAME "
                         "command-line option:"
-                     << platforms
+                     << platforms << std::endl
                      << "or set --platforms_count=1.";
             error = ss_error.str();
             return;
@@ -140,7 +158,7 @@ uur::PlatformEnvironment::PlatformEnvironment(int argc, char **argv)
                      << "\" not found. Select a single platform from below "
                         "using the "
                         "--platform=NAME command-line options:"
-                     << platforms
+                     << platforms << std::endl
                      << "or set --platforms_count=1.";
             error = ss_error.str();
             return;
@@ -230,6 +248,7 @@ DevicesEnvironment::DevicesEnvironment(int argc, char **argv)
         error = "Could not find any devices associated with the platform";
         return;
     }
+    
     // Get the argument (devices_count) to limit test devices count.
     // In case, the devices_count is "0", the variable count will not be changed.
     // The CTS will run on all devices.
@@ -247,7 +266,13 @@ DevicesEnvironment::DevicesEnvironment(int argc, char **argv)
             return;
         }
     } else {
-        for (u_long i = 0; i<devices.size(); i++) {
+        devices.resize(count);
+        if (urDeviceGet(platform, UR_DEVICE_TYPE_ALL, count, devices.data(),
+                        nullptr)) {
+            error = "urDeviceGet() failed to get devices.";
+            return;
+            }
+        for (u_long i = 0; i<count; i++) {
             size_t size;
             if (urDeviceGetInfo(devices[i], UR_DEVICE_INFO_NAME, 0, nullptr,
                                   &size)) {
@@ -268,13 +293,13 @@ DevicesEnvironment::DevicesEnvironment(int argc, char **argv)
                 break;
             }
         }
-        if (device) {
+        if (!device) {
                 std::stringstream ss_error;
                 ss_error << "Device \"" << device_options.device_name
                          << "\" not found. Select a single device from below "
                             "using the "
                             "--device=NAME command-line options:"
-                         << devices
+                         << devices << std::endl
                          << "or set --devices_count=COUNT.";
                 error = ss_error.str();
                 return;
